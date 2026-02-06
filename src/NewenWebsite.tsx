@@ -20,44 +20,20 @@ import {
 } from "lucide-react";
 
 /* =========================================================
-   COMPONENTES LOGO NEWEN
+   LOGO NEWEN (logo.png)
    - Hero: con glow (marketing/branding)
    - Flat: sin glow (UI / navbar / footer)
 ========================================================= */
 
+const logoUrl = `${import.meta.env.BASE_URL}logo.png`;
+
 const NewenLogoBase = ({ className = "w-10 h-10", glow = false }) => (
-  <svg
-    viewBox="0 0 100 100"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
-    <defs>
-      <linearGradient id="copperGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#FF8C00" />
-        <stop offset="50%" stopColor="#FFA500" />
-        <stop offset="100%" stopColor="#B87333" />
-      </linearGradient>
-
-      {glow && (
-        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="2" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-      )}
-    </defs>
-
-    <path
-      d="M10 75L45 35L60 55L70 45L90 75H75L60 55L45 75H10Z"
-      fill="url(#copperGradient)"
-      style={glow ? { filter: "url(#glow)" } : undefined}
-    />
-    <path
-      d="M35 50L55 15L90 75H75L55 35L40 55L35 50Z"
-      fill="url(#copperGradient)"
-      fillOpacity="0.9"
-    />
-  </svg>
+  <img
+    src={logoUrl}
+    alt="NEWEN logo"
+    loading="eager"
+    className={`${className}${glow ? " drop-shadow-[0_0_20px_rgba(255,140,0,0.45)]" : ""}`}
+  />
 );
 
 const NewenLogoHero = (props) => <NewenLogoBase {...props} glow />;
@@ -106,7 +82,7 @@ const NewenWebsite = () => {
             <a href="#status" className="nav-link">Estado</a>
             <a href="#faq" className="nav-link">FAQ</a>
             <a
-              href="https://github.com"
+              href="https://github.com/OrmazabalDev"
               className="text-gray-400 hover:text-[#FF8C00]"
               target="_blank"
               rel="noreferrer"
@@ -204,12 +180,12 @@ const NewenWebsite = () => {
           <NewenLogoHero className="w-24 h-24 mx-auto mb-10" />
 
           <h1 className="text-5xl md:text-7xl font-rajdhani font-bold text-white tracking-tighter leading-[0.9] mb-6">
-            NEWEN Launcher 1.0.0 “Atacama”
+            Launcher nativo para Minecraft
           </h1>
 
           <p className="max-w-3xl mx-auto text-xl text-gray-400 leading-relaxed mb-6">
-            Un launcher nativo, rápido y claro para Minecraft. Diseñado para darte control total
-            sin complicaciones.
+            NEWEN Launcher 1.0.0 “Atacama”: rápido, claro y gratuito. Diseñado para darte control
+            total sin complicaciones.
           </p>
           <p className="max-w-3xl mx-auto text-sm text-gray-500 leading-relaxed mb-12">
             Sin bloatware, sin telemetría, sin humo.
@@ -514,7 +490,10 @@ const NewenWebsite = () => {
             <div className="text-sm text-gray-400">
               Versión actual: <span className="text-white">1.0.0 “Atacama”</span>
             </div>
-            <div className="text-sm text-gray-400">Estado: lanzamiento público inicial.</div>
+            <div className="text-sm text-gray-400">
+              Estado: lanzamiento público inicial (acceso anticipado para detectar errores y
+              mejorar el launcher).
+            </div>
             <div className="flex gap-3 items-start text-sm text-gray-500">
               <AlertTriangle size={18} className="text-[#FF8C00] mt-0.5" />
               <div>
@@ -678,7 +657,7 @@ const NewenWebsite = () => {
 
           <div className="flex flex-col md:items-end justify-between">
             <div className="flex gap-6 mb-6">
-              <a href="https://github.com" className="text-gray-500 hover:text-white transition-colors">
+              <a href="https://github.com/OrmazabalDev" className="text-gray-500 hover:text-white transition-colors">
                 <Github size={20} />
               </a>
               <a
