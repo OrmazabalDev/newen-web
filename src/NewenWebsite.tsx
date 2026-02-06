@@ -92,12 +92,14 @@ const NewenWebsite = () => {
           </div>
 
           <div className="hidden md:block text-right">
-            <a
-              href="#download"
-              className="inline-flex items-center justify-center bg-[#FF8C00] hover:bg-[#FFA500] text-[#121212] font-bold py-2.5 px-8 rounded-sm font-rajdhani tracking-wider transition-all"
+            <button
+              type="button"
+              disabled
+              title="Descarga próximamente"
+              className="inline-flex items-center justify-center bg-[#FF8C00]/60 text-[#121212]/80 font-bold py-2.5 px-8 rounded-sm font-rajdhani tracking-wider cursor-not-allowed"
             >
-              DESCARGAR 1.0.0
-            </a>
+              PRÓXIMAMENTE
+            </button>
             <div className="text-[9px] text-gray-500 tracking-widest uppercase mt-1">
               Windows · Linux/macOS en camino
             </div>
@@ -156,12 +158,14 @@ const NewenWebsite = () => {
             >
               FAQ
             </a>
-            <a
-              href="#download"
-              className="w-full bg-[#FF8C00] text-[#121212] font-bold py-3 px-4 rounded-sm font-rajdhani text-center inline-flex justify-center"
+            <button
+              type="button"
+              disabled
+              title="Descarga próximamente"
+              className="w-full bg-[#FF8C00]/60 text-[#121212]/80 font-bold py-3 px-4 rounded-sm font-rajdhani text-center inline-flex justify-center cursor-not-allowed"
             >
-              DESCARGAR 1.0.0
-            </a>
+              PRÓXIMAMENTE
+            </button>
           </div>
         )}
       </nav>
@@ -192,12 +196,14 @@ const NewenWebsite = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-            <a
-              href="#download"
-              className="w-full sm:w-auto bg-[#FF8C00] text-[#121212] font-rajdhani font-bold py-5 px-14 tracking-widest rounded-sm shadow-2xl shadow-[#FF8C00]/20 hover:scale-105 transition-all inline-flex items-center justify-center gap-3"
+            <button
+              type="button"
+              disabled
+              title="Descarga próximamente"
+              className="w-full sm:w-auto bg-[#FF8C00]/60 text-[#121212]/80 font-rajdhani font-bold py-5 px-14 tracking-widest rounded-sm shadow-2xl shadow-[#FF8C00]/10 inline-flex items-center justify-center gap-3 cursor-not-allowed"
             >
-              <Download size={22} /> DESCARGAR 1.0.0
-            </a>
+              <Download size={22} /> PRÓXIMAMENTE
+            </button>
             <a
               href="#features"
               className="w-full sm:w-auto border border-white/10 text-white font-rajdhani font-bold py-5 px-14 tracking-widest rounded-sm hover:border-[#FF8C00] hover:text-[#FF8C00] transition-all inline-flex items-center justify-center gap-3"
@@ -518,12 +524,14 @@ const NewenWebsite = () => {
                 Verifica que el archivo no fue modificado.
               </p>
             </div>
-            <a
-              href="#"
-              className="bg-[#FF8C00] text-[#121212] font-rajdhani font-bold py-4 px-10 tracking-widest rounded-sm shadow-2xl shadow-[#FF8C00]/20 hover:scale-105 transition-all inline-flex items-center gap-3"
+            <button
+              type="button"
+              disabled
+              title="Descarga próximamente"
+              className="bg-[#FF8C00]/60 text-[#121212]/80 font-rajdhani font-bold py-4 px-10 tracking-widest rounded-sm shadow-2xl shadow-[#FF8C00]/10 inline-flex items-center gap-3 cursor-not-allowed"
             >
-              <Download size={20} /> DESCARGAR 1.0.0
-            </a>
+              <Download size={20} /> PRÓXIMAMENTE
+            </button>
           </div>
 
           <div className="mt-8 bg-[#1B1E23] border border-white/5 p-6 rounded-sm">
