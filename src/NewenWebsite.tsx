@@ -350,14 +350,6 @@ const NewenWebsite = () => {
                 Minimiza al jugar y restaura el launcher al salir.
               </p>
             </div>
-            <div className="bg-[#1B1E23] border border-white/5 p-8 rounded-sm md:col-span-3">
-              <h3 className="text-xl font-rajdhani font-bold text-white mb-3 uppercase tracking-wider">
-                Discord Rich Presence
-              </h3>
-              <p className="text-gray-400 text-sm">
-                Presencia limpia: launcher → juego, sin ruido ni overlays pesados.
-              </p>
-            </div>
           </div>
         </div>
       </section>
@@ -571,13 +563,7 @@ const NewenWebsite = () => {
               Auto-update con rollback seguro.
             </div>
             <div className="bg-[#1B1E23] border border-white/5 p-6 rounded-sm">
-              CurseForge completo con API key.
-            </div>
-            <div className="bg-[#1B1E23] border border-white/5 p-6 rounded-sm">
               Perfiles avanzados y presets por instancia.
-            </div>
-            <div className="bg-[#1B1E23] border border-white/5 p-6 rounded-sm">
-              Firma digital del instalador y verificación integrada.
             </div>
           </div>
         </div>
