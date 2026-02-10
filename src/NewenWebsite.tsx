@@ -24,6 +24,8 @@ import {
   Identity: Dark Theme (#121212), Orange Accent (#FF8C00), Rajdhani/Inter Fonts
 */
 
+const logoUrl = `${import.meta.env.BASE_URL}logo.png`;
+
 const NewenWebsite = () => {
   const [scrolled, setScrolled] = useState(false);
 
@@ -64,9 +66,12 @@ const NewenWebsite = () => {
       >
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-[#FF8C00] to-[#B87333] rounded flex items-center justify-center font-heading font-bold text-black text-xl">
-              N
-            </div>
+            <img
+              src={logoUrl}
+              alt="NEWEN logo"
+              className="w-8 h-8 rounded"
+              loading="eager"
+            />
             <span className="font-heading font-bold text-2xl tracking-wide text-white">
               NEWEN <span className="text-[#FF8C00]">LAUNCHER</span>
             </span>
@@ -172,10 +177,12 @@ const NewenWebsite = () => {
                 {/* App Logo Area */}
                 <div className="flex items-center gap-3 mb-10">
                   <div className="w-10 h-10 flex items-center justify-center">
-                    <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10 stroke-[#FF8C00] stroke-2">
-                      <path d="M3 20L12 4L21 20H3Z" strokeLinejoin="round" />
-                      <path d="M8 20L12 12L16 20" />
-                    </svg>
+                    <img
+                      src={logoUrl}
+                      alt="NEWEN logo"
+                      className="w-10 h-10"
+                      loading="eager"
+                    />
                   </div>
                   <div className="flex flex-col leading-none">
                     <span className="text-white font-heading font-bold text-xl">Newen</span>
@@ -225,7 +232,7 @@ const NewenWebsite = () => {
                       PA
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-white font-bold text-sm">pancito</span>
+                      <span className="text-white font-bold text-sm">panxito_26</span>
                       <span className="text-gray-500 text-xs">Offline</span>
                     </div>
                   </div>
@@ -478,9 +485,12 @@ const NewenWebsite = () => {
       <footer className="bg-[#0e0e0e] border-t border-[#1B1E23] py-12">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#2A2E35] rounded flex items-center justify-center font-heading font-bold text-gray-400 text-lg">
-              N
-            </div>
+            <img
+              src={logoUrl}
+              alt="NEWEN logo"
+              className="w-8 h-8 rounded"
+              loading="lazy"
+            />
             <span className="font-heading font-bold text-xl text-gray-500">NEWEN</span>
           </div>
 
@@ -488,11 +498,13 @@ const NewenWebsite = () => {
             <a href="#" className="hover:text-[#FF8C00] transition-colors">
               Discord
             </a>
-            <a href="#" className="hover:text-[#FF8C00] transition-colors">
+            <a
+              href="https://github.com/OrmazabalDev"
+              className="hover:text-[#FF8C00] transition-colors"
+              target="_blank"
+              rel="noreferrer"
+            >
               GitHub
-            </a>
-            <a href="#" className="hover:text-[#FF8C00] transition-colors">
-              Reportar Bug
             </a>
             <a href="#" className="hover:text-[#FF8C00] transition-colors">
               Términos
@@ -500,7 +512,7 @@ const NewenWebsite = () => {
           </div>
 
           <div className="text-gray-600 text-xs font-body text-center md:text-right">
-            © 2024 Newen Launcher Team.
+            © 2026 Newen Launcher Team.
             <br />
             Not affiliated with Mojang or Microsoft.
           </div>
