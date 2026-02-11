@@ -64,16 +64,16 @@ const NewenWebsite = () => {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img
               src={logoUrl}
               alt="NEWEN logo"
-              className="w-8 h-8 rounded"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded"
               loading="eager"
             />
-            <span className="font-heading font-bold text-2xl tracking-wide text-white">
-              NEWEN <span className="text-[#FF8C00]">LAUNCHER</span>
+            <span className="font-heading font-bold text-lg sm:text-2xl tracking-wide text-white whitespace-nowrap">
+              NEWEN <span className="text-[#FF8C00] hidden sm:inline">LAUNCHER</span>
             </span>
           </div>
 
@@ -93,7 +93,7 @@ const NewenWebsite = () => {
             type="button"
             disabled
             title="Descarga próximamente"
-            className="bg-white/60 text-black/70 font-heading font-bold px-6 py-2 rounded transition-colors flex items-center gap-2 cursor-not-allowed"
+            className="bg-white/60 text-black/70 font-heading font-bold px-3 sm:px-6 py-2 rounded transition-colors flex items-center gap-2 cursor-not-allowed text-[11px] sm:text-sm whitespace-nowrap"
           >
             <Download size={18} />
             <span>PRÓXIMAMENTE</span>
@@ -102,7 +102,7 @@ const NewenWebsite = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 lg:pt-32 lg:pb-24 px-6 overflow-hidden">
+      <section className="relative pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-32 lg:pb-24 px-6 overflow-hidden">
         {/* Background Elements */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
           <div className="absolute top-20 left-10 w-96 h-96 bg-[#FF8C00] rounded-full mix-blend-screen filter blur-[120px] opacity-10 animate-pulse"></div>
@@ -113,7 +113,7 @@ const NewenWebsite = () => {
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-16 items-center relative z-10">
           {/* Text Content (Takes 5 columns) */}
           <div className="lg:col-span-5 space-y-8 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF8C00]/10 border border-[#FF8C00]/20 text-[#FF8C00] text-xs font-bold tracking-wider uppercase font-body">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF8C00]/10 border border-[#FF8C00]/20 text-[#FF8C00] text-[10px] sm:text-xs font-bold tracking-wider uppercase font-body">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF8C00] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF8C00]"></span>
@@ -121,14 +121,14 @@ const NewenWebsite = () => {
               Versión Atacama v1.0 Disponible
             </div>
 
-            <h1 className="font-heading text-5xl lg:text-7xl font-bold leading-tight text-white">
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.05] sm:leading-tight text-white">
               TU MINECRAFT, <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF8C00] to-[#B87333] glow-text">
                 SIN LÍMITES.
               </span>
             </h1>
 
-            <p className="font-body text-gray-400 text-lg lg:text-xl max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            <p className="font-body text-gray-400 text-base sm:text-lg lg:text-xl max-w-md sm:max-w-xl mx-auto lg:mx-0 leading-relaxed">
               Potenciado por Rust y Tauri. Gestiona instancias, mods y rendimiento en una interfaz
               moderna, ligera y diseñada para gamers.
             </p>
@@ -138,7 +138,7 @@ const NewenWebsite = () => {
                 type="button"
                 disabled
                 title="Descarga próximamente"
-                className="group relative px-8 py-4 bg-gradient-to-r from-[#FF8C00] to-[#B87333] text-white/80 font-heading font-bold text-lg rounded overflow-hidden shadow-[0_0_20px_rgba(255,140,0,0.2)] transition-all cursor-not-allowed"
+                className="group relative w-full sm:w-auto px-6 sm:px-8 py-4 bg-gradient-to-r from-[#FF8C00] to-[#B87333] text-white/80 font-heading font-bold text-base sm:text-lg rounded overflow-hidden shadow-[0_0_20px_rgba(255,140,0,0.2)] transition-all cursor-not-allowed"
               >
                 <div className="absolute inset-0 bg-white/20"></div>
                 <span className="relative flex items-center gap-2">
@@ -146,7 +146,7 @@ const NewenWebsite = () => {
                 </span>
               </button>
 
-              <button className="px-8 py-4 bg-[#1B1E23] border border-[#2A2E35] text-gray-300 font-heading font-bold text-lg rounded hover:border-[#FF8C00] hover:text-white transition-all flex items-center gap-2">
+              <button className="w-full sm:w-auto px-6 sm:px-8 py-4 bg-[#1B1E23] border border-[#2A2E35] text-gray-300 font-heading font-bold text-base sm:text-lg rounded hover:border-[#FF8C00] hover:text-white transition-all flex items-center gap-2">
                 <Terminal size={20} className="text-[#26619C]" />
                 VER CHANGELOG
               </button>
@@ -154,7 +154,7 @@ const NewenWebsite = () => {
           </div>
 
           {/* UI Mockup (Takes 7 columns now for extra width) */}
-          <div className="lg:col-span-7 relative glow-box rounded-xl bg-[#0b0d10] border border-[#2A2E35] p-2 shadow-2xl transition-all duration-700 ease-out [transform:rotateY(12deg)] lg:[transform:rotate(2deg)] hover:[transform:rotate(0deg)] [transform-style:preserve-3d] [perspective:1000px] w-full">
+          <div className="hidden lg:block lg:col-span-7 relative glow-box rounded-xl bg-[#0b0d10] border border-[#2A2E35] p-2 shadow-2xl transition-transform duration-700 ease-out origin-top transform-gpu [transform:scale(0.92)] sm:[transform:rotateY(8deg)_scale(1)] lg:[transform:rotate(2deg)_scale(1)] lg:hover:[transform:rotate(0deg)_scale(1)] sm:[transform-style:preserve-3d] sm:[perspective:1000px] w-full max-w-[520px] sm:max-w-none mx-auto">
             {/* Window Controls */}
             <div className="h-10 bg-[#0b0d10] rounded-t-lg flex items-center px-4 gap-2 border-b border-[#2A2E35]/50 justify-between">
               <div className="text-xs text-gray-400 font-heading font-bold tracking-wider">
@@ -171,9 +171,9 @@ const NewenWebsite = () => {
             </div>
 
             {/* App Interface */}
-            <div className="h-[700px] flex bg-[#0b0d10] overflow-hidden rounded-b-lg font-body text-sm relative">
+            <div className="h-[520px] sm:h-[600px] lg:h-[700px] flex bg-[#0b0d10] overflow-hidden rounded-b-lg font-body text-sm relative">
               {/* Sidebar */}
-              <div className="w-72 bg-[#131518] flex flex-col p-6 border-r border-[#2A2E35]/30 z-20 shrink-0">
+              <div className="w-48 sm:w-56 lg:w-72 bg-[#131518] flex flex-col p-4 sm:p-5 lg:p-6 border-r border-[#2A2E35]/30 z-20 shrink-0">
                 {/* App Logo Area */}
                 <div className="flex items-center gap-3 mb-10">
                   <div className="w-10 h-10 flex items-center justify-center">
@@ -243,25 +243,25 @@ const NewenWebsite = () => {
               </div>
 
               {/* Main Content */}
-              <div className="flex-1 flex flex-col relative bg-[#0b0d10] p-12 lg:p-16">
+              <div className="flex-1 flex flex-col relative bg-[#0b0d10] p-6 sm:p-8 lg:p-16">
                 {/* Background Details */}
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]"></div>
 
                 {/* Top Stats Bar */}
-                <div className="relative z-20 flex justify-end gap-4">
-                  <div className="flex items-center gap-6 bg-[#131518] border border-[#2A2E35] rounded-full px-5 py-2">
-                    <div className="flex items-center gap-3 text-xs text-gray-300">
+                <div className="relative z-20 flex flex-wrap items-center justify-end gap-3 sm:gap-4">
+                  <div className="flex flex-wrap items-center gap-4 sm:gap-6 bg-[#131518] border border-[#2A2E35] rounded-full px-4 sm:px-5 py-2">
+                    <div className="flex items-center gap-3 text-[10px] sm:text-xs text-gray-300">
                       <Cpu size={14} className="text-[#FF8C00]" />
                       <span className="font-mono font-bold">CPU: 47.0%</span>
                     </div>
                     <div className="w-[1px] h-4 bg-gray-700"></div>
-                    <div className="flex items-center gap-3 text-xs text-gray-300">
+                    <div className="flex items-center gap-3 text-[10px] sm:text-xs text-gray-300">
                       <HardDrive size={14} className="text-[#26619C]" />
                       <span className="font-mono font-bold">RAM: 21 MB</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 bg-[#131518] border border-[#2A2E35] rounded-full px-4 py-2 text-xs text-gray-500 font-mono">
+                  <div className="hidden sm:flex items-center gap-2 bg-[#131518] border border-[#2A2E35] rounded-full px-3 sm:px-4 py-2 text-[10px] sm:text-xs text-gray-500 font-mono">
                     <span>Launcher reservada: 22 MB</span>
                   </div>
                 </div>
@@ -269,7 +269,7 @@ const NewenWebsite = () => {
                 {/* Center Content Group */}
                 <div className="relative z-20 my-auto">
                   {/* Badges */}
-                  <div className="flex gap-3 mb-6">
+                  <div className="flex flex-wrap gap-3 mb-6">
                     <span className="px-4 py-1.5 rounded bg-[#1e3a8a]/40 text-[#60a5fa] text-xs font-bold tracking-wider border border-[#1e3a8a] uppercase">
                       Forge 1.20.1-FORGE-47.4.16
                     </span>
@@ -280,7 +280,7 @@ const NewenWebsite = () => {
 
                   {/* Title & Desc */}
                   <div className="space-y-4 mb-12">
-                    <h1 className="text-7xl font-heading font-bold text-white tracking-tighter uppercase">
+                    <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tighter uppercase">
                       MC
                     </h1>
                     <p className="text-gray-400 max-w-lg text-lg leading-relaxed font-medium">
@@ -290,10 +290,10 @@ const NewenWebsite = () => {
                   </div>
 
                   {/* Action Area */}
-                  <div className="flex items-center gap-8">
+                  <div className="flex flex-col xl:flex-row items-stretch xl:items-center gap-6 xl:gap-8">
                     {/* Play Button */}
-                    <button className="h-24 px-10 bg-gradient-to-r from-[#FF8C00] to-[#ea580c] rounded-2xl flex items-center gap-6 shadow-xl shadow-orange-500/10 hover:shadow-orange-500/20 hover:scale-[1.01] transition-all group min-w-[320px]">
-                      <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                    <button className="h-20 sm:h-24 px-6 sm:px-10 bg-gradient-to-r from-[#FF8C00] to-[#ea580c] rounded-2xl flex items-center gap-6 shadow-xl shadow-orange-500/10 hover:shadow-orange-500/20 hover:scale-[1.01] transition-all group w-full xl:min-w-[320px]">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/20 rounded-xl flex items-center justify-center group-hover:bg-white/30 transition-colors">
                         <Play size={28} fill="white" className="ml-1 text-white" />
                       </div>
                       <div className="flex flex-col items-start justify-center h-full">
@@ -307,11 +307,11 @@ const NewenWebsite = () => {
                     </button>
 
                     {/* Instance Selector */}
-                    <div className="h-24 flex flex-col justify-center">
+                    <div className="h-24 flex flex-col justify-center w-full xl:w-auto">
                       <span className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-2 ml-1">
                         Instancia Activa
                       </span>
-                      <div className="bg-[#131518] border border-[#2A2E35] rounded-2xl px-6 h-[72px] flex items-center gap-4 min-w-[280px] hover:border-gray-600 transition-colors cursor-pointer">
+                      <div className="bg-[#131518] border border-[#2A2E35] rounded-2xl px-6 h-[72px] flex items-center gap-4 w-full xl:min-w-[280px] hover:border-gray-600 transition-colors cursor-pointer">
                         <div className="w-10 h-10 bg-[#2A2E35] rounded-lg flex items-center justify-center text-gray-400 font-bold text-sm">
                           M
                         </div>
@@ -407,10 +407,10 @@ const NewenWebsite = () => {
                 <div className="w-2 h-2 rounded-full bg-red-500"></div>
                 <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
                 <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                <span className="ml-2 text-xs opacity-50">console — newen-core</span>
+                <span className="ml-2 text-xs opacity-50">console - newen-core</span>
               </div>
               <p className="mb-2">
-                <span className="text-green-500">➜</span>{" "}
+                <span className="text-green-500">?</span>{" "}
                 <span className="text-[#FF8C00]">newen</span> init --performance-mode
               </p>
               <p className="mb-1 text-gray-500">[INFO] Detecting system Java version...</p>
@@ -475,7 +475,7 @@ const NewenWebsite = () => {
               <Download size={28} /> PRÓXIMAMENTE
             </button>
             <p className="text-gray-500 text-sm font-body mt-4">
-              v1.0.4 Atacama • Open Source • Sin publicidad
+              v1.0.4 Atacama . Open Source . Sin publicidad
             </p>
           </div>
         </div>
@@ -494,7 +494,7 @@ const NewenWebsite = () => {
             <span className="font-heading font-bold text-xl text-gray-500">NEWEN</span>
           </div>
 
-          <div className="flex gap-8 font-body text-sm text-gray-500">
+          <div className="flex flex-wrap justify-center md:justify-start gap-6 md:gap-8 font-body text-sm text-gray-500">
             <a href="#" className="hover:text-[#FF8C00] transition-colors">
               Discord
             </a>
