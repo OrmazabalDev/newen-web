@@ -620,8 +620,22 @@ const NewenWebsite = () => {
               Newen Launcher - Early Access
             </span>
           </div>
-          <div className="text-gray-500 text-sm font-body text-center md:text-right">
-            Soporte oficial: Discord
+          <div className="flex flex-col sm:flex-row items-center gap-2 text-gray-500 text-sm font-body text-center md:text-right">
+            <a
+              href="https://discord.gg/rTbktFZYZz"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              Soporte oficial: Discord
+            </a>
+            <span className="hidden sm:inline text-gray-700">•</span>
+            <a
+              href="#/politica-de-privacidad"
+              className="hover:text-white transition-colors"
+            >
+              Política de Privacidad
+            </a>
           </div>
         </div>
       </footer>
