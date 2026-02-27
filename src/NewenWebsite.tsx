@@ -2,12 +2,10 @@ import { useEffect, useState, type ReactNode } from "react";
 import {
   Download,
   Zap,
-  Box,
   Cpu,
   ShieldCheck,
   Settings,
   ChevronRight,
-  Terminal,
   CheckCircle,
   Play,
   Search,
@@ -79,10 +77,10 @@ const NewenWebsite = () => {
 
           <div className="hidden md:flex items-center gap-8 font-body text-sm font-medium text-gray-400">
             <a href="#about" className="hover:text-white transition-colors">
-              Qué es
+              Qué es Newen
             </a>
             <a href="#features" className="hover:text-white transition-colors">
-              Lo que ya funciona
+              Lo que puedes hacer
             </a>
             <a href="#download" className="hover:text-white transition-colors">
               Descarga
@@ -91,16 +89,18 @@ const NewenWebsite = () => {
               Discord
             </a>
             <a href="#faq" className="hover:text-white transition-colors">
-              FAQ
+              Preguntas rápidas
             </a>
           </div>
 
           <a
-            href="https://github.com/OrmazabalDev/Newen_lUpdate/releases/download/1.1/Newen.Launcher_1.1.0_x64-setup.exe"
+            href="https://forms.gle/247MqxET4xtHj3HM7"
+            target="_blank"
+            rel="noreferrer"
             className="bg-gradient-to-r from-[#FF8C00] to-[#B87333] text-white font-heading font-bold px-3 sm:px-6 py-2 rounded transition-all flex items-center gap-2 text-[11px] sm:text-sm whitespace-nowrap hover:brightness-110"
           >
             <Download size={18} />
-            <span>Descargar (Windows 10/11)</span>
+            <span>Acceso anticipado</span>
           </a>
         </div>
       </nav>
@@ -120,24 +120,31 @@ const NewenWebsite = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF8C00] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF8C00]"></span>
               </span>
-              Early Access / Beta - Estamos mejorando rápido
+              Early Access
             </div>
 
             <h1 className="font-heading text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.05] sm:leading-tight text-white">
               Newen Launcher
             </h1>
 
+            <p className="font-heading text-xl sm:text-2xl text-white max-w-md sm:max-w-xl mx-auto lg:mx-0">
+              Fuerza para jugar Minecraft sin complicaciones.
+            </p>
+
             <p className="font-body text-gray-400 text-base sm:text-lg lg:text-xl max-w-md sm:max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              Launcher moderno para Minecraft con enfoque en rendimiento y simplicidad.
+              Launcher moderno para quienes quieren rendimiento real, control de instancias y una
+              experiencia limpia.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <a
-                href="https://github.com/OrmazabalDev/Newen_lUpdate/releases/download/1.1/Newen.Launcher_1.1.0_x64-setup.exe"
+                href="https://forms.gle/247MqxET4xtHj3HM7"
+                target="_blank"
+                rel="noreferrer"
                 className="group relative w-full sm:w-auto px-6 sm:px-8 py-4 bg-gradient-to-r from-[#FF8C00] to-[#B87333] text-white font-heading font-bold text-base sm:text-lg rounded overflow-hidden shadow-[0_0_20px_rgba(255,140,0,0.2)] transition-all hover:brightness-110"
               >
                 <span className="relative flex items-center gap-2 justify-center">
-                  Descargar (Windows 10/11) <Download size={20} />
+                  Solicitar acceso <Download size={20} />
                 </span>
               </a>
 
@@ -148,9 +155,13 @@ const NewenWebsite = () => {
                 className="w-full sm:w-auto px-6 sm:px-8 py-4 bg-[#1B1E23] border border-[#2A2E35] text-gray-300 font-heading font-bold text-base sm:text-lg rounded hover:border-[#FF8C00] hover:text-white transition-all flex items-center justify-center gap-2"
               >
                 <MessageCircle size={20} className="text-[#26619C]" />
-                Discord Oficial
+                Discord oficial
               </a>
             </div>
+
+            <p className="text-[11px] sm:text-xs text-gray-500 font-body">
+              Early Access · Sin firma digital todavía · 0 detecciones en VirusTotal
+            </p>
           </div>
 
           {/* UI Mockup */}
@@ -334,9 +345,9 @@ const NewenWebsite = () => {
           <div className="lg:col-span-7 space-y-4">
             <h2 className="font-heading text-4xl font-bold text-white">Qué es Newen</h2>
             <p className="font-body text-gray-400 text-lg leading-relaxed">
-              Newen es un launcher moderno para Minecraft. La idea es reducir pasos, mejorar la
-              experiencia y tener todo organizado: instancias, catálogo y optimizaciones en un solo
-              lugar.
+              Newen es un launcher chileno, moderno y directo. Está pensado para quienes aman
+              Minecraft pero odian el caos: instalaciones manuales, mods incompatibles y bajo
+              rendimiento.
             </p>
           </div>
           <div className="lg:col-span-5">
@@ -345,8 +356,8 @@ const NewenWebsite = () => {
                 Enfoque
               </div>
               <p className="text-gray-400 leading-relaxed font-body">
-                Menos fricción para jugar, más orden para tus instancias y un catálogo integrado
-                para no salir del launcher.
+                Rendimiento real, control de instancias y una experiencia limpia para jugar sin
+                complicaciones.
               </p>
             </div>
           </div>
@@ -358,47 +369,60 @@ const NewenWebsite = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="font-heading text-4xl font-bold text-white mb-4">
-              LO QUE YA <span className="text-[#FF8C00]">FUNCIONA</span>
+              LO QUE <span className="text-[#FF8C00]">PUEDES HACER</span>
             </h2>
             <p className="font-body text-gray-400 max-w-2xl mx-auto">
-              Funciones reales, disponibles hoy en Early Access.
+              Catálogo, instancias y rendimiento en un solo lugar.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <FeatureCard
-              icon={<Box size={32} className="text-[#FF8C00]" />}
-              title="Instancias completas"
-              desc="Instancias con Vanilla, Forge, NeoForge y Fabric."
-            />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <FeatureCard
               icon={<Search size={32} className="text-[#26619C]" />}
               title="Catálogo integrado"
-              desc="Mods, modpacks, resource packs y shaders desde Modrinth."
+              desc="Busca e instala mods, modpacks, shaders y resource packs desde un solo lugar (Modrinth)."
             />
             <FeatureCard
-              icon={<Download size={32} className="text-[#FF8C00]" />}
-              title="Instalación directa"
-              desc="Instala contenido desde el catálogo con un clic."
+              icon={<Folder size={32} className="text-[#FF8C00]" />}
+              title="Instancias claras"
+              desc="Vanilla, Forge, NeoForge y Fabric organizados sin enredos."
             />
             <FeatureCard
               icon={<Zap size={32} className="text-[#FF8C00]" />}
-              title="Optimización predefinida"
-              desc="Perfiles de rendimiento listos para usar."
+              title="Optimización en 1 clic"
+              desc="Perfiles listos para rendimiento (Competitivo / Balanceado / Calidad)."
             />
             <FeatureCard
-              icon={<User size={32} className="text-purple-400" />}
-              title="Skins offline"
-              desc="Gestión de skins y capas sin depender de cuenta."
-            />
-            <FeatureCard
-              icon={<Terminal size={32} className="text-green-400" />}
-              title="Diagnóstico"
-              desc="Reportes de logs y diagnósticos rápidos."
+              icon={<ShieldCheck size={32} className="text-green-400" />}
+              title="Rollback seguro"
+              desc="Si algo falla, puedes volver atrás sin romper tu instancia."
             />
           </div>
         </div>
       </section>
+
+      {/* Performance */}
+      <section id="performance" className="py-20 bg-[#121212] border-t border-[#2A2E35]">
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-7 space-y-4">
+            <h2 className="font-heading text-4xl font-bold text-white">Rendimiento en serio</h2>
+            <p className="font-body text-gray-400 text-lg leading-relaxed">
+              Minecraft puede ir lento incluso en PCs buenas.
+            </p>
+            <p className="font-body text-gray-400 text-lg leading-relaxed">
+              Newen te da optimizaciones listas, ajustes de RAM y herramientas reales para mejorar
+              el rendimiento sin horas de prueba y error.
+            </p>
+          </div>
+          <div className="lg:col-span-5 grid gap-4">
+            <InfoCard text="Optimizaciones listas para rendimiento." />
+            <InfoCard text="Ajustes de RAM claros y rápidos." />
+            <InfoCard text="Herramientas reales para mejorar rendimiento." />
+          </div>
+        </div>
+      </section>
+
+      
 
       {/* Early Access */}
       <section id="early-access" className="py-20 bg-[#15171B] border-t border-[#2A2E35] overflow-hidden">
@@ -410,15 +434,15 @@ const NewenWebsite = () => {
                 color="bg-orange-900/20 text-orange-400 border-orange-500/30"
               />
               <TechBadge
-                label="Beta"
+                label="Sin firma"
                 color="bg-blue-900/20 text-blue-400 border-blue-500/30"
               />
               <TechBadge
-                label="Sin tracking"
+                label="Sin trackers"
                 color="bg-gray-800 text-gray-300 border-gray-700"
               />
               <TechBadge
-                label="Sin pago"
+                label="Feedback real"
                 color="bg-gray-800 text-gray-300 border-gray-700"
               />
             </div>
@@ -432,21 +456,18 @@ const NewenWebsite = () => {
               </div>
               <p className="mb-2">
                 <span className="text-green-400">✔</span>{" "}
-                <span className="text-[#FF8C00]">Instalador limpio</span> (0 detecciones en
-                VirusTotal)
+                <span className="text-[#FF8C00]">0 detecciones en VirusTotal</span>
               </p>
               <p className="text-gray-500">
-                Estamos trabajando en firma digital y reputación para evitar advertencias de
-                Windows.
+                El instalador no tiene firma digital aún (Windows puede advertir).
               </p>
             </div>
           </div>
 
           <div className="order-1 lg:order-2 space-y-6">
-            <h2 className="font-heading text-4xl font-bold text-white">Early Access / Beta</h2>
+            <h2 className="font-heading text-4xl font-bold text-white">Early Access</h2>
             <p className="font-body text-gray-400 text-lg leading-relaxed">
-              Esta versión es Early Access. No hay funciones &quot;de pago&quot; ni tracking raro.
-              Estamos priorizando estabilidad y limpieza interna.
+              Este launcher está en desarrollo activo.
             </p>
             <ul className="space-y-4 font-body text-gray-300">
               <li className="flex items-start gap-3">
@@ -454,23 +475,82 @@ const NewenWebsite = () => {
                   <CheckCircle size={16} />
                 </div>
                 <span>
-                  Sin firma digital por ahora (Windows puede mostrar advertencia de editor
-                  desconocido).
+                  El instalador no tiene firma digital aún (Windows puede advertir).
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <div className="p-1 rounded bg-[#FF8C00]/20 text-[#FF8C00] mt-1">
                   <CheckCircle size={16} />
                 </div>
-                <span>El instalador es limpio (0 detecciones en VirusTotal).</span>
+                <span>No hay trackers ni publicidad.</span>
               </li>
               <li className="flex items-start gap-3">
                 <div className="p-1 rounded bg-[#FF8C00]/20 text-[#FF8C00] mt-1">
                   <CheckCircle size={16} />
                 </div>
-                <span>Estamos trabajando en firma y reputación.</span>
+                <span>Mejoramos rápido con feedback real.</span>
               </li>
             </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Discord Support */}
+      <section id="discord" className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#121212] via-[#1B1E23] to-[#121212]"></div>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+
+        <div className="max-w-4xl mx-auto px-6 relative z-10 text-center space-y-8">
+          <h2 className="font-heading text-5xl font-bold text-white">Discord = centro oficial</h2>
+          <p className="font-body text-xl text-gray-400">
+            Comunidad, soporte y anuncios viven ahí:
+          </p>
+
+          <div className="flex flex-col sm:flex-row justify-center gap-4 text-left">
+            <div className="flex items-center gap-3 bg-[#1B1E23] border border-[#2A2E35] rounded-lg px-4 py-3 text-gray-300">
+              <CheckCircle size={18} className="text-[#FF8C00]" />
+              <span>Chat entre usuarios</span>
+            </div>
+            <div className="flex items-center gap-3 bg-[#1B1E23] border border-[#2A2E35] rounded-lg px-4 py-3 text-gray-300">
+              <CheckCircle size={18} className="text-[#FF8C00]" />
+              <span>Tickets de ayuda</span>
+            </div>
+            <div className="flex items-center gap-3 bg-[#1B1E23] border border-[#2A2E35] rounded-lg px-4 py-3 text-gray-300">
+              <CheckCircle size={18} className="text-[#FF8C00]" />
+              <span>Changelog y roadmap</span>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-4">
+            <a
+              href="https://discord.gg/rTbktFZYZz"
+              target="_blank"
+              rel="noreferrer"
+              className="px-12 py-5 bg-[#FF8C00] text-black font-heading font-bold text-2xl rounded shadow-[0_0_30px_rgba(255,140,0,0.25)] transition-all flex items-center gap-3 hover:brightness-110"
+            >
+              <MessageCircle size={28} /> Entrar al Discord
+            </a>
+            <p className="text-gray-500 text-sm font-body mt-2">
+              Early Access · Feedback rápido · Soporte oficial
+            </p>
+            <p className="text-gray-500 text-xs font-body">
+              Los que entran por ahora reciben rol beta tester.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className="py-20 bg-[#15171B] border-t border-[#2A2E35]">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="font-heading text-4xl font-bold text-white">Preguntas rápidas</h2>
+            <p className="font-body text-gray-400">Respuestas directas a lo básico.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <FaqCard question="¿Es gratis?" answer="Sí." />
+            <FaqCard question="¿Necesito cuenta?" answer="No para jugar offline. Para online, sí." />
+            <FaqCard question="¿Dónde pido soporte?" answer="En el Discord oficial." />
           </div>
         </div>
       </section>
@@ -481,24 +561,17 @@ const NewenWebsite = () => {
           <div className="space-y-6">
             <h2 className="font-heading text-4xl font-bold text-white">Descarga</h2>
             <p className="font-body text-gray-400 text-lg leading-relaxed">
-              Descarga la versión Early Access para Windows y ayúdanos con feedback real.
+              Windows 10/11 x64. Completa el formulario para participar en el acceso anticipado.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="https://github.com/OrmazabalDev/Newen_lUpdate/releases/download/1.1/Newen.Launcher_1.1.0_x64-setup.exe"
+                href="https://forms.gle/247MqxET4xtHj3HM7"
+                target="_blank"
+                rel="noreferrer"
                 className="px-6 sm:px-8 py-4 bg-gradient-to-r from-[#FF8C00] to-[#B87333] text-white font-heading font-bold text-base sm:text-lg rounded shadow-[0_0_20px_rgba(255,140,0,0.2)] transition-all hover:brightness-110 inline-flex items-center gap-2 justify-center"
               >
                 <Download size={20} />
-                Descargar (Windows 10/11)
-              </a>
-              <a
-                href="https://discord.gg/rTbktFZYZz"
-                target="_blank"
-                rel="noreferrer"
-                className="px-6 sm:px-8 py-4 bg-[#1B1E23] border border-[#2A2E35] text-gray-300 font-heading font-bold text-base sm:text-lg rounded hover:border-[#FF8C00] hover:text-white transition-all inline-flex items-center gap-2 justify-center"
-              >
-                <MessageCircle size={20} className="text-[#26619C]" />
-                Soporte en Discord
+                Participar en Early Access
               </a>
             </div>
           </div>
@@ -519,6 +592,17 @@ const NewenWebsite = () => {
                 Instalador oficial en Releases
               </a>
             </div>
+            <div className="flex items-center gap-3 text-gray-300">
+              <Download size={18} className="text-[#FF8C00]" />
+              <a
+                href="https://github.com/OrmazabalDev/Newen_lUpdate/releases"
+                target="_blank"
+                rel="noreferrer"
+                className="font-body text-gray-200 hover:text-white transition-colors"
+              >
+                Link alternativo MSI
+              </a>
+            </div>
             <div className="flex items-start gap-3 text-gray-300">
               <ShieldCheck size={18} className="text-[#FF8C00] mt-0.5" />
               <span className="font-body">
@@ -529,82 +613,7 @@ const NewenWebsite = () => {
         </div>
       </section>
 
-      {/* Discord Support */}
-      <section id="discord" className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#121212] via-[#1B1E23] to-[#121212]"></div>
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
-
-        <div className="max-w-4xl mx-auto px-6 relative z-10 text-center space-y-8">
-          <h2 className="font-heading text-5xl font-bold text-white">Discord = Soporte oficial</h2>
-          <p className="font-body text-xl text-gray-400">
-            Si necesitas ayuda o quieres sugerir algo, el Discord es el canal oficial.
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-4 text-left">
-            <div className="flex items-center gap-3 bg-[#1B1E23] border border-[#2A2E35] rounded-lg px-4 py-3 text-gray-300">
-              <CheckCircle size={18} className="text-[#FF8C00]" />
-              <span>Comunidad (chat entre usuarios)</span>
-            </div>
-            <div className="flex items-center gap-3 bg-[#1B1E23] border border-[#2A2E35] rounded-lg px-4 py-3 text-gray-300">
-              <CheckCircle size={18} className="text-[#FF8C00]" />
-              <span>Soporte con tickets</span>
-            </div>
-            <div className="flex items-center gap-3 bg-[#1B1E23] border border-[#2A2E35] rounded-lg px-4 py-3 text-gray-300">
-              <CheckCircle size={18} className="text-[#FF8C00]" />
-              <span>Anuncios y changelog</span>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-4">
-            <a
-              href="https://discord.gg/rTbktFZYZz"
-              target="_blank"
-              rel="noreferrer"
-              className="px-12 py-5 bg-[#FF8C00] text-black font-heading font-bold text-2xl rounded shadow-[0_0_30px_rgba(255,140,0,0.25)] transition-all flex items-center gap-3 hover:brightness-110"
-            >
-              <MessageCircle size={28} /> Entrar al Discord Oficial
-            </a>
-            <p className="text-gray-500 text-sm font-body mt-2">
-              Early Access - Feedback rápido - Soporte oficial
-            </p>
-            <p className="text-gray-500 text-xs font-body">
-              Los que entran por ahora reciben rol beta tester.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Roadmap */}
-      <section id="roadmap" className="py-20 bg-[#121212] border-t border-[#2A2E35]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-heading text-4xl font-bold text-white">Roadmap corto</h2>
-            <p className="font-body text-gray-400 max-w-2xl mx-auto">
-              Lo siguiente en la lista mientras pulimos la beta.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            <RoadmapCard text="Mejoras de estabilidad en instalación y arranque" />
-            <RoadmapCard text="UI más pulida y rápida" />
-            <RoadmapCard text="Mejor experiencia en soporte y reportes" />
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section id="faq" className="py-20 bg-[#15171B] border-t border-[#2A2E35]">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-heading text-4xl font-bold text-white">FAQ mínima</h2>
-            <p className="font-body text-gray-400">Respuestas directas a lo básico.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            <FaqCard question="¿Es gratis?" answer="Sí." />
-            <FaqCard question="¿Necesito cuenta?" answer="No para jugar offline. Para online, sí." />
-            <FaqCard question="¿Dónde pido soporte?" answer="Discord oficial." />
-          </div>
-        </div>
-      </section>
+      
 
       {/* Footer */}
       <footer className="bg-[#0e0e0e] border-t border-[#1B1E23] py-10">
@@ -617,25 +626,30 @@ const NewenWebsite = () => {
               loading="lazy"
             />
             <span className="font-heading font-bold text-lg text-gray-400">
-              Newen Launcher - Early Access
+              Newen Launcher — Early Access
             </span>
           </div>
-          <div className="flex flex-col sm:flex-row items-center gap-2 text-gray-500 text-sm font-body text-center md:text-right">
-            <a
-              href="https://discord.gg/rTbktFZYZz"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              Soporte oficial: Discord
-            </a>
-            <span className="hidden sm:inline text-gray-700">•</span>
-            <a
-              href="#/politica-de-privacidad"
-              className="hover:text-white transition-colors"
-            >
-              Política de Privacidad
-            </a>
+          <div className="flex flex-col items-center md:items-end gap-2 text-gray-500 text-sm font-body text-center md:text-right">
+            <div className="flex flex-col sm:flex-row items-center gap-2">
+              <a
+                href="https://discord.gg/rTbktFZYZz"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                Soporte oficial: Discord
+              </a>
+              <span className="hidden sm:inline text-gray-700">•</span>
+              <a
+                href="#/politica-de-privacidad"
+                className="hover:text-white transition-colors"
+              >
+                Política de Privacidad
+              </a>
+            </div>
+            <div className="text-xs text-gray-600 max-w-md">
+              Minecraft es una marca registrada de Mojang y Microsoft. Newen no está afiliado.
+            </div>
           </div>
         </div>
       </footer>
@@ -675,11 +689,11 @@ const TechBadge = ({ label, color }: TechBadgeProps) => (
   </div>
 );
 
-type RoadmapCardProps = {
+type InfoCardProps = {
   text: string;
 };
 
-const RoadmapCard = ({ text }: RoadmapCardProps) => (
+const InfoCard = ({ text }: InfoCardProps) => (
   <div className="bg-[#1B1E23] border border-[#2A2E35] rounded-lg p-6 flex items-start gap-3 text-gray-300">
     <div className="p-1 rounded bg-[#FF8C00]/20 text-[#FF8C00] mt-0.5">
       <CheckCircle size={16} />
