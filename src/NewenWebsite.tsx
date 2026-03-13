@@ -1,717 +1,1093 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
+import type { LucideIcon } from "lucide-react";
 import {
-  Download,
-  Zap,
+  ArrowRight,
+  CheckCircle2,
   Cpu,
-  ShieldCheck,
-  Settings,
-  ChevronRight,
-  CheckCircle,
-  Play,
-  Search,
-  User,
+  Download,
+  Eye,
+  FileText,
   Folder,
-  LogOut,
-  Coffee,
-  HardDrive,
+  Gauge,
+  Github,
+  Globe2,
+  Layers,
   MessageCircle,
+  PackageCheck,
+  RefreshCw,
+  Rocket,
+  Search,
+  ShieldCheck,
+  ShieldAlert,
+  Sparkles,
+  Wrench,
 } from "lucide-react";
 
-/* NEWEN LAUNCHER - LANDING PAGE
-  Built with React + Tailwind CSS
-  Identity: Dark Theme (#121212), Orange Accent (#FF8C00), Rajdhani/Inter Fonts
-*/
-
 const logoUrl = `${import.meta.env.BASE_URL}logo.png`;
+const githubUrl = "https://github.com/OrmazabalDev/newen_launcher";
+const releasesUrl = "https://github.com/OrmazabalDev/newen_launcher/releases";
+const discordUrl = "https://discord.gg/tsCcEYuPX3";
+const virusTotalUrl =
+  "https://www.virustotal.com/gui/file/1e54603be2cf628c7878758c57a18f483f7295f96a9873a350be32af4a8ccd23/details";
+const menuJugarImage = new URL("../capturas/Menu_Jugar.png", import.meta.url).href;
+const menuInstanciasImage = new URL("../capturas/Menu_Instancias.png", import.meta.url).href;
+const menuModsImage = new URL("../capturas/Menu_Catalg_Mods.png", import.meta.url).href;
+const menuModpacksImage = new URL(
+  "../capturas/Menu_Catalg_Modpacks.png",
+  import.meta.url,
+).href;
+const menuAjustesImage = new URL("../capturas/Menu_Ajustes.png", import.meta.url).href;
+const menuSkinsImage = new URL("../capturas/Menu_Skins.png", import.meta.url).href;
+
+type CardData = {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+};
+
+type ScreenshotPreview = {
+  src: string;
+  alt: string;
+  title: string;
+};
+
+const differentiators: CardData[] = [
+  {
+    icon: MessageCircle,
+    title: "Claridad en español",
+    description:
+      "Flujos, mensajes y onboarding pensados para usuarios hispanohablantes, no solo traducidos.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Confianza y transparencia",
+    description:
+      "Mostramos qué hace el launcher, qué instala y cómo seguir el proyecto sin zonas grises.",
+  },
+  {
+    icon: Gauge,
+    title: "Orden y rendimiento",
+    description:
+      "Instancias limpias, menos desorden y perfiles orientados a equipos reales, no solo de gama alta.",
+  },
+];
+
+const coreFeatures: CardData[] = [
+  {
+    icon: Folder,
+    title: "Gestión de instancias",
+    description:
+      "Crea, edita, duplica, elimina y ordena perfiles sin tocar carpetas manualmente.",
+  },
+  {
+    icon: Layers,
+    title: "Vanilla, Fabric, Forge y NeoForge",
+    description: "Los loaders principales conviven en un flujo simple y claro.",
+  },
+  {
+    icon: Download,
+    title: "Instalación simple",
+    description: "Elige versión y loader desde la interfaz, sin procesos complejos.",
+  },
+  {
+    icon: Search,
+    title: "Catálogo integrado",
+    description:
+      "Mods, modpacks, shaders, resource packs y datapacks desde una fuente clara.",
+  },
+  {
+    icon: Gauge,
+    title: "Optimización básica",
+    description: "Perfiles sugeridos para rendimiento según equipo o tipo de uso.",
+  },
+  {
+    icon: Cpu,
+    title: "Gestión de Java",
+    description:
+      "Detecta, descarga o configura Java sin obligarte a resolverlo por tu cuenta.",
+  },
+  {
+    icon: Eye,
+    title: "Diagnóstico entendible",
+    description: "Errores explicados con causas probables y sugerencias útiles.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Reparación rápida",
+    description:
+      "Corrige instancias, archivos dañados o configuraciones comunes sin rehacer todo.",
+  },
+  {
+    icon: Sparkles,
+    title: "Interfaz moderna",
+    description: "Diseño limpio, legible y sin sensación de launcher improvisado.",
+  },
+  {
+    icon: FileText,
+    title: "Transparencia del sistema",
+    description: "Versión visible, changelog, logs claros y accesos técnicos útiles.",
+  },
+];
+
+const audienceItems = [
+  "Quieres jugar Minecraft sin perder tiempo configurando todo manualmente.",
+  "Usas mods o modpacks, pero te enredas con instalaciones y loaders.",
+  "Tienes un PC medio o modesto y valoras rendimiento antes que adornos.",
+  "Prefieres una experiencia clara en español y desconfías de launchers opacos.",
+];
+
+const screenshotShowcase = [
+  {
+    eyebrow: "Menu jugar",
+    title: "Pantalla principal para entrar a jugar",
+    description:
+      "Vista general del launcher con acceso rapido a la instancia activa y el estado principal del perfil.",
+    chips: ["Inicio", "Instancia activa", "Acceso rapido"],
+    imageSrc: menuJugarImage,
+    imageAlt: "Captura real del menu jugar de Newen Launcher",
+  },
+  {
+    eyebrow: "Menu instancias",
+    title: "Gestion visual de instancias",
+    description:
+      "Espacio para crear, revisar y organizar perfiles sin depender de carpetas manuales.",
+    chips: ["Perfiles", "Orden", "Gestion"],
+    imageSrc: menuInstanciasImage,
+    imageAlt: "Captura real del menu instancias de Newen Launcher",
+  },
+  {
+    eyebrow: "Catalogo de mods",
+    title: "Mods integrados en el launcher",
+    description:
+      "Busqueda y exploracion de contenido desde una vista centralizada y mas clara.",
+    chips: ["Mods", "Busqueda", "Catalogo"],
+    imageSrc: menuModsImage,
+    imageAlt: "Captura real del catalogo de mods de Newen Launcher",
+  },
+  {
+    eyebrow: "Catalogo de modpacks",
+    title: "Modpacks desde una vista dedicada",
+    description:
+      "Pantalla enfocada en modpacks para instalar contenido mas complejo desde un mismo flujo.",
+    chips: ["Modpacks", "Instalacion", "Exploracion"],
+    imageSrc: menuModpacksImage,
+    imageAlt: "Captura real del catalogo de modpacks de Newen Launcher",
+  },
+  {
+    eyebrow: "Menu ajustes",
+    title: "Configuracion y control del launcher",
+    description:
+      "Zona para revisar preferencias, opciones tecnicas y parametros de funcionamiento.",
+    chips: ["Ajustes", "Preferencias", "Control"],
+    imageSrc: menuAjustesImage,
+    imageAlt: "Captura real del menu ajustes de Newen Launcher",
+  },
+  {
+    eyebrow: "Menu skins",
+    title: "Gestion de aspecto del perfil",
+    description:
+      "Pantalla destinada a administrar skins y elementos visuales del usuario.",
+    chips: ["Skins", "Perfil", "Personalizacion"],
+    imageSrc: menuSkinsImage,
+    imageAlt: "Captura real del menu skins de Newen Launcher",
+  },
+];
+
+const transparencyItems = [
+  "Versión actual visible en cada release.",
+  "Notas de cambios y seguimiento del desarrollo.",
+  "Hash del instalador junto a cada descarga pública.",
+  "Análisis externo del archivo descargable.",
+  "Enlaces técnicos del proyecto y política de privacidad.",
+];
+
+const trustFacts = [
+  {
+    active: false,
+    icon: Gauge,
+    label: "Estado del proyecto",
+    value: "Beta privada",
+    note: "Desarrollo activo y foco actual en estabilidad.",
+    href: releasesUrl,
+  },
+  {
+    active: true,
+    icon: RefreshCw,
+    label: "Ultimo update",
+    value: "13 Mar 2026",
+    note: "Fecha visible para cada publicacion.",
+    href: releasesUrl,
+  },
+  {
+    active: true,
+    icon: FileText,
+    label: "Changelog",
+    value: "Disponible en GitHub Releases",
+    note: "Historial de cambios por version.",
+    href: releasesUrl,
+  },
+  {
+    active: false,
+    icon: ShieldCheck,
+    label: "Hash SHA-256",
+    value: "Publicado con cada release",
+    note: "Verificacion del instalador oficial.",
+    href: releasesUrl,
+  },
+  {
+    active: true,
+    icon: Eye,
+    label: "VirusTotal",
+    value: "Analisis publico disponible",
+    note: "Enlace directo al reporte de VirusTotal del instalador.",
+    href: virusTotalUrl,
+  },
+  {
+    active: true,
+    icon: Github,
+    label: "GitHub del proyecto",
+    value: "Repositorio oficial",
+    note: "Codigo, issues y seguimiento tecnico.",
+    href: githubUrl,
+  },
+];
+
+const faqs = [
+  {
+    question: "Es seguro?",
+    answer:
+      "Newen prioriza transparencia: publicamos el estado del proyecto, las releases oficiales y la informacion tecnica relevante para que sepas que estas descargando.",
+  },
+  {
+    question: "Por que Windows puede mostrar una advertencia?",
+    answer:
+      "Porque el instalador aun no cuenta con firma digital. Para compensarlo, la web destaca links oficiales, hash de verificacion y el seguimiento publico del proyecto.",
+  },
+  {
+    question: "Que datos guarda Newen?",
+    answer:
+      "Principalmente configuraciones, caches e instancias en tu equipo. La politica de privacidad explica cuando intervienen servicios externos.",
+  },
+  {
+    question: "Necesito tener Minecraft premium?",
+    answer:
+      "Depende del modo de uso y de las reglas del ecosistema oficial de Minecraft. La autenticacion sigue ese contexto.",
+  },
+  {
+    question: "Que loaders soporta?",
+    answer:
+      "La base del producto contempla Vanilla, Fabric, Forge y NeoForge como compatibilidad principal.",
+  },
+  {
+    question: "Que pasa si una instancia falla?",
+    answer:
+      "El objetivo del launcher es mostrar diagnostico entendible y opciones de reparacion rapida para errores comunes de Java, archivos o configuracion.",
+  },
+  {
+    question: "Necesito instalar Java manualmente?",
+    answer:
+      "No deberia ser necesario en la mayoria de casos. Newen apunta a detectar, configurar o ayudarte a recuperar Java desde la propia experiencia.",
+  },
+];
+
+const roadmap = {
+  done: [
+    "Base visual del launcher",
+    "Gestion inicial de instancias",
+    "Compatibilidad base con loaders",
+    "Landing y proyecto publico",
+  ],
+  progress: [
+    "Diagnostico y reparacion de errores",
+    "Mejoras de onboarding",
+    "Pulido de rendimiento y estabilidad",
+    "Transparencia de releases y verificacion",
+  ],
+  next: [
+    "Mas capturas reales del producto",
+    "Flujo de descarga mas serio",
+    "Mejores mensajes de error",
+    "Pulido visual entre web y launcher",
+  ],
+};
 
 const NewenWebsite = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [selectedScreenshot, setSelectedScreenshot] = useState<ScreenshotPreview | null>(null);
 
-  // Handle scroll for navbar transparency effect
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!selectedScreenshot) {
+      return undefined;
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedScreenshot(null);
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [selectedScreenshot]);
+
   return (
-    <div className="min-h-screen bg-[#121212] text-gray-200 font-sans selection:bg-[#FF8C00] selection:text-white overflow-x-hidden">
-      {/* Font Imports and Global Styles */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Rajdhani:wght@500;600;700&display=swap');
+    <div id="top" className="min-h-screen overflow-x-hidden bg-[var(--bg)] text-[var(--text)]">
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-x-0 top-[-14rem] h-[30rem] bg-[radial-gradient(circle_at_top,_rgba(240,138,36,0.28),_transparent_60%)]" />
+        <div className="absolute left-[-12rem] top-[24rem] h-[24rem] w-[24rem] rounded-full bg-[rgba(31,111,139,0.18)] blur-3xl" />
+        <div className="absolute right-[-8rem] top-[34rem] h-[20rem] w-[20rem] rounded-full bg-[rgba(255,178,90,0.14)] blur-3xl" />
+      </div>
 
-        .font-heading { font-family: 'Rajdhani', sans-serif; }
-        .font-body { font-family: 'Inter', sans-serif; }
-
-        .glow-text { text-shadow: 0 0 20px rgba(255, 140, 0, 0.3); }
-        .glow-box { box-shadow: 0 0 40px rgba(255, 140, 0, 0.1); }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #121212; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #FF8C00; }
-      `}</style>
-
-      {/* Navbar */}
       <nav
-        className={`fixed w-full z-50 transition-all duration-300 ${
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-[#121212]/90 backdrop-blur-md border-b border-[#2A2E35]"
+            ? "border-b border-[var(--line)] bg-[rgba(12,17,22,0.88)] backdrop-blur-xl"
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img
-              src={logoUrl}
-              alt="NEWEN logo"
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded"
-              loading="eager"
-            />
-            <span className="font-heading font-bold text-lg sm:text-2xl tracking-wide text-white whitespace-nowrap">
-              NEWEN <span className="text-[#FF8C00] hidden sm:inline">LAUNCHER</span>
-            </span>
-          </div>
-
-          <div className="hidden md:flex items-center gap-8 font-body text-sm font-medium text-gray-400">
-            <a href="#about" className="hover:text-white transition-colors">
-              Qué es Newen
-            </a>
-            <a href="#features" className="hover:text-white transition-colors">
-              Lo que puedes hacer
-            </a>
-            <a href="#download" className="hover:text-white transition-colors">
-              Descarga
-            </a>
-            <a href="#discord" className="hover:text-white transition-colors">
-              Discord
-            </a>
-            <a href="#faq" className="hover:text-white transition-colors">
-              Preguntas rápidas
-            </a>
-          </div>
-
-          <a
-            href="https://forms.gle/247MqxET4xtHj3HM7"
-            target="_blank"
-            rel="noreferrer"
-            className="bg-gradient-to-r from-[#FF8C00] to-[#B87333] text-white font-heading font-bold px-3 sm:px-6 py-2 rounded transition-all flex items-center gap-2 text-[11px] sm:text-sm whitespace-nowrap hover:brightness-110"
-          >
-            <Download size={18} />
-            <span>Acceso anticipado</span>
+        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 sm:px-6">
+          <a href="#top" className="flex items-center gap-3">
+            <img src={logoUrl} alt="Newen Launcher" className="h-9 w-9 rounded-xl" loading="eager" />
+            <div className="leading-none">
+              <div className="font-heading text-lg font-bold text-white sm:text-xl">Newen Launcher</div>
+              <div className="text-xs text-[var(--muted)]">Juega Minecraft sin enredos</div>
+            </div>
           </a>
+
+          <div className="hidden items-center gap-7 text-sm text-[var(--muted)] lg:flex">
+            <a href="#features" className="hover:text-white">Características</a>
+            <a href="#transparency" className="hover:text-white">Transparencia</a>
+            <a href="#download" className="hover:text-white">Descarga</a>
+            <a href={githubUrl} target="_blank" rel="noreferrer" className="hover:text-white">GitHub</a>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden rounded-full border border-[var(--line)] px-4 py-2 text-sm text-[var(--muted)] transition-colors hover:border-[var(--brand)] hover:text-white sm:inline-flex sm:items-center sm:gap-2"
+            >
+              <Github size={16} />
+              GitHub
+            </a>
+            <a
+              href={releasesUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-semibold text-[#10151b] transition-transform hover:translate-y-[-1px] hover:bg-[var(--brand-soft)]"
+            >
+              <Download size={16} />
+              Descargar
+            </a>
+          </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-32 lg:pb-24 px-6 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-[#FF8C00] rounded-full mix-blend-screen filter blur-[120px] opacity-10 animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-80 h-80 bg-[#26619C] rounded-full mix-blend-screen filter blur-[100px] opacity-10"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-16 items-center relative z-10">
-          <div className="lg:col-span-5 space-y-8 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF8C00]/10 border border-[#FF8C00]/20 text-[#FF8C00] text-[10px] sm:text-xs font-bold tracking-wider uppercase font-body">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF8C00] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF8C00]"></span>
-              </span>
-              Early Access
-            </div>
-
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.05] sm:leading-tight text-white">
-              Newen Launcher
-            </h1>
-
-            <p className="font-heading text-xl sm:text-2xl text-white max-w-md sm:max-w-xl mx-auto lg:mx-0">
-              Fuerza para jugar Minecraft sin complicaciones.
-            </p>
-
-            <p className="font-body text-gray-400 text-base sm:text-lg lg:text-xl max-w-md sm:max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              Launcher moderno para quienes quieren rendimiento real, control de instancias y una
-              experiencia limpia.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a
-                href="https://forms.gle/247MqxET4xtHj3HM7"
-                target="_blank"
-                rel="noreferrer"
-                className="group relative w-full sm:w-auto px-6 sm:px-8 py-4 bg-gradient-to-r from-[#FF8C00] to-[#B87333] text-white font-heading font-bold text-base sm:text-lg rounded overflow-hidden shadow-[0_0_20px_rgba(255,140,0,0.2)] transition-all hover:brightness-110"
-              >
-                <span className="relative flex items-center gap-2 justify-center">
-                  Solicitar acceso <Download size={20} />
-                </span>
-              </a>
-
-              <a
-                href="https://discord.gg/rTbktFZYZz"
-                target="_blank"
-                rel="noreferrer"
-                className="w-full sm:w-auto px-6 sm:px-8 py-4 bg-[#1B1E23] border border-[#2A2E35] text-gray-300 font-heading font-bold text-base sm:text-lg rounded hover:border-[#FF8C00] hover:text-white transition-all flex items-center justify-center gap-2"
-              >
-                <MessageCircle size={20} className="text-[#26619C]" />
-                Discord oficial
-              </a>
-            </div>
-
-            <p className="text-[11px] sm:text-xs text-gray-500 font-body">
-              Early Access · Sin firma digital todavía · 0 detecciones en VirusTotal
-            </p>
-          </div>
-
-          {/* UI Mockup */}
-          <div className="hidden lg:block lg:col-span-7 relative glow-box rounded-xl bg-[#0b0d10] border border-[#2A2E35] p-2 shadow-2xl transition-transform duration-700 ease-out origin-top transform-gpu [transform:scale(0.92)] sm:[transform:rotateY(8deg)_scale(1)] lg:[transform:rotate(2deg)_scale(1)] lg:hover:[transform:rotate(0deg)_scale(1)] sm:[transform-style:preserve-3d] sm:[perspective:1000px] w-full max-w-[520px] sm:max-w-none mx-auto">
-            <div className="h-10 bg-[#0b0d10] rounded-t-lg flex items-center px-4 gap-2 border-b border-[#2A2E35]/50 justify-between">
-              <div className="text-xs text-gray-400 font-heading font-bold tracking-wider">
-                Newen Launcher
+      <main>
+        <section className="px-4 pb-20 pt-28 sm:px-6 sm:pt-32 lg:pb-28 lg:pt-36">
+          <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <div className="space-y-8">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(240,138,36,0.3)] bg-[rgba(240,138,36,0.08)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand-soft)]">
+                <span className="h-2 w-2 rounded-full bg-[var(--brand)]" />
+                Desarrollado en Chile
               </div>
-              <div className="flex gap-2">
-                <div className="w-3 h-1 bg-gray-600 rounded-full"></div>
-                <div className="w-3 h-3 border border-gray-600 rounded-sm"></div>
-                <div className="w-3 h-3 relative">
-                  <div className="absolute inset-0 rotate-45 w-full h-[1px] bg-gray-600 top-1/2"></div>
-                  <div className="absolute inset-0 -rotate-45 w-full h-[1px] bg-gray-600 top-1/2"></div>
-                </div>
+
+              <div className="space-y-5">
+                <h1 className="font-heading text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl">
+                  Juega Minecraft sin enredos.
+                </h1>
+                <p className="max-w-2xl text-lg leading-8 text-[var(--muted)] sm:text-xl">
+                  Newen Launcher es un launcher moderno para Minecraft con foco en orden,
+                  confianza y rendimiento. Hecho para instalar, organizar y jugar con menos
+                  fricción técnica.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <a
+                  href={releasesUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--brand)] px-6 py-4 text-base font-semibold text-[#10151b] transition-transform hover:translate-y-[-1px] hover:bg-[var(--brand-soft)]"
+                >
+                  Descargar
+                  <Download size={18} />
+                </a>
+                <a
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--line)] bg-[rgba(255,255,255,0.02)] px-6 py-4 text-base font-semibold text-white transition-colors hover:border-[var(--brand)] hover:bg-[rgba(240,138,36,0.08)]"
+                >
+                  Ver en GitHub
+                  <Github size={18} />
+                </a>
+              </div>
+
+              <p className="text-sm leading-7 text-[var(--muted)]">
+                Orden, confianza y rendimiento en un solo launcher. Compatible con Windows 10/11
+                y pensado para la comunidad hispanohablante.
+              </p>
+
+              <div className="grid gap-4 sm:grid-cols-3">
+                <StatCard label="Soporte base" value="Vanilla + loaders" />
+                <StatCard label="Pensado para" value="PCs normales" />
+                <StatCard label="Enfoque" value="Claridad real" />
               </div>
             </div>
 
-            <div className="h-[520px] sm:h-[600px] lg:h-[700px] flex bg-[#0b0d10] overflow-hidden rounded-b-lg font-body text-sm relative">
-              {/* Sidebar */}
-              <div className="w-48 sm:w-56 lg:w-72 bg-[#131518] flex flex-col p-4 sm:p-5 lg:p-6 border-r border-[#2A2E35]/30 z-20 shrink-0">
-                <div className="flex items-center gap-3 mb-10">
-                  <div className="w-10 h-10 flex items-center justify-center">
-                    <img
-                      src={logoUrl}
-                      alt="NEWEN logo"
-                      className="w-10 h-10"
-                      loading="eager"
-                    />
-                  </div>
-                  <div className="flex flex-col leading-none">
-                    <span className="text-white font-heading font-bold text-xl">Newen</span>
-                    <span className="text-[#FF8C00] font-heading font-bold text-sm">Launcher</span>
-                  </div>
-                </div>
+            <div className="grid gap-4">
+              <HeroPanel
+                eyebrow="Lo esencial"
+                title="Un launcher claro antes de abrirse"
+                description="El hero resume la propuesta real del producto: ordenar instancias, reducir friccion tecnica y dar contexto confiable antes de descargar."
+              />
 
-                <div className="flex flex-col gap-4 flex-1">
-                  <div className="flex items-center gap-4 px-5 py-3 rounded-lg border border-[#FF8C00]/50 bg-gradient-to-r from-[#FF8C00]/10 to-transparent text-white font-medium cursor-pointer relative group">
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#FF8C00] rounded-l-lg"></div>
-                    <Play size={18} fill="white" className="text-[#FF8C00]" />
-                    <span className="text-base font-bold">Jugar</span>
-                  </div>
-
-                  <div className="flex items-center gap-4 px-5 py-2 text-gray-400 hover:text-white hover:bg-[#1B1E23] rounded-lg cursor-pointer transition-colors">
-                    <Folder size={20} />
-                    <span className="text-base font-medium">Instancias</span>
-                  </div>
-
-                  <div className="flex items-center gap-4 px-5 py-2 text-gray-400 hover:text-white hover:bg-[#1B1E23] rounded-lg cursor-pointer transition-colors">
-                    <Search size={20} />
-                    <span className="text-base font-medium">Catálogo mods</span>
-                  </div>
-
-                  <div className="flex items-center gap-4 px-5 py-2 text-gray-400 hover:text-white hover:bg-[#1B1E23] rounded-lg cursor-pointer transition-colors">
-                    <Download size={20} />
-                    <span className="text-base font-medium">Modpacks</span>
-                  </div>
-
-                  <div className="flex items-center gap-4 px-5 py-2 text-gray-400 hover:text-white hover:bg-[#1B1E23] rounded-lg cursor-pointer transition-colors">
-                    <User size={20} />
-                    <span className="text-base font-medium">Skins</span>
-                  </div>
-
-                  <div className="flex items-center gap-4 px-5 py-2 text-gray-400 hover:text-white hover:bg-[#1B1E23] rounded-lg cursor-pointer transition-colors">
-                    <Settings size={20} />
-                    <span className="text-base font-medium">Ajustes</span>
-                  </div>
-                </div>
-
-                <div className="mt-auto bg-[#0b0d10] p-4 rounded-xl border border-[#2A2E35] flex items-center justify-between group cursor-pointer hover:border-[#FF8C00]/50 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-[#FF8C00] flex items-center justify-center text-black font-bold font-heading text-lg">
-                      PA
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-white font-bold text-sm">panxito_26</span>
-                      <span className="text-gray-500 text-xs">Offline</span>
-                    </div>
-                  </div>
-                  <button className="text-gray-500 hover:text-white group-hover:text-[#FF8C00]">
-                    <LogOut size={16} />
-                  </button>
-                </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <HeroMiniCard
+                  icon={Layers}
+                  title="Loaders en un solo flujo"
+                  description="Vanilla, Fabric, Forge y NeoForge con una experiencia mas clara."
+                />
+                <HeroMiniCard
+                  icon={ShieldCheck}
+                  title="Confianza visible"
+                  description="Releases, changelog, estado del proyecto y enlaces oficiales al frente."
+                />
               </div>
 
-              {/* Main Content */}
-              <div className="flex-1 flex flex-col relative bg-[#0b0d10] p-6 sm:p-8 lg:p-16">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]"></div>
-
-                <div className="relative z-20 flex flex-wrap items-center justify-end gap-3 sm:gap-4">
-                  <div className="flex flex-wrap items-center gap-4 sm:gap-6 bg-[#131518] border border-[#2A2E35] rounded-full px-4 sm:px-5 py-2">
-                    <div className="flex items-center gap-3 text-[10px] sm:text-xs text-gray-300">
-                      <Cpu size={14} className="text-[#FF8C00]" />
-                      <span className="font-mono font-bold">CPU: 47.0%</span>
+              <div className="rounded-[1.8rem] border border-[rgba(255,255,255,0.08)] bg-[linear-gradient(180deg,_rgba(19,28,37,0.9),_rgba(13,18,24,0.92))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <div className="text-xs uppercase tracking-[0.18em] text-[var(--brand-soft)]">
+                      Estado actual
                     </div>
-                    <div className="w-[1px] h-4 bg-gray-700"></div>
-                    <div className="flex items-center gap-3 text-[10px] sm:text-xs text-gray-300">
-                      <HardDrive size={14} className="text-[#26619C]" />
-                      <span className="font-mono font-bold">RAM: 21 MB</span>
+                    <div className="mt-2 font-heading text-3xl font-bold text-white">
+                      Beta privada
                     </div>
                   </div>
-
-                  <div className="hidden sm:flex items-center gap-2 bg-[#131518] border border-[#2A2E35] rounded-full px-3 sm:px-4 py-2 text-[10px] sm:text-xs text-gray-500 font-mono">
-                    <span>Early Access - Beta</span>
+                  <div className="rounded-full border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] px-4 py-2 text-sm text-[var(--muted)]">
+                    Windows 10/11
                   </div>
                 </div>
 
-                <div className="relative z-20 my-auto">
-                  <div className="flex flex-wrap gap-3 mb-6">
-                    <span className="px-4 py-1.5 rounded bg-[#1e3a8a]/40 text-[#60a5fa] text-xs font-bold tracking-wider border border-[#1e3a8a] uppercase">
-                      Forge 1.20.1
-                    </span>
-                    <span className="px-4 py-1.5 rounded bg-[#4c1d95]/40 text-[#a78bfa] text-xs font-bold tracking-wider border border-[#4c1d95] uppercase">
-                      Catálogo Modrinth
-                    </span>
-                  </div>
-
-                  <div className="space-y-4 mb-12">
-                    <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tighter uppercase">
-                      NEWEN
-                    </h1>
-                    <p className="text-gray-400 max-w-lg text-lg leading-relaxed font-medium">
-                      Instancias, catálogo y optimizaciones en un solo lugar. Menos pasos, más
-                      juego.
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col xl:flex-row items-stretch xl:items-center gap-6 xl:gap-8">
-                    <button className="h-20 sm:h-24 px-6 sm:px-10 bg-gradient-to-r from-[#FF8C00] to-[#ea580c] rounded-2xl flex items-center gap-6 shadow-xl shadow-orange-500/10 hover:shadow-orange-500/20 hover:scale-[1.01] transition-all group w-full xl:min-w-[320px]">
-                      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/20 rounded-xl flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                        <Play size={28} fill="white" className="ml-1 text-white" />
-                      </div>
-                      <div className="flex flex-col items-start justify-center h-full">
-                        <span className="text-[11px] font-bold text-orange-100/90 uppercase tracking-widest mb-1">
-                          Estado: Beta
-                        </span>
-                        <span className="text-4xl font-heading font-bold text-white leading-none tracking-wide">
-                          JUGAR
-                        </span>
-                      </div>
-                    </button>
-
-                    <div className="h-24 flex flex-col justify-center w-full xl:w-auto">
-                      <span className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-2 ml-1">
-                        Instancia Activa
-                      </span>
-                      <div className="bg-[#131518] border border-[#2A2E35] rounded-2xl px-6 h-[72px] flex items-center gap-4 w-full xl:min-w-[280px] hover:border-gray-600 transition-colors cursor-pointer">
-                        <div className="w-10 h-10 bg-[#2A2E35] rounded-lg flex items-center justify-center text-gray-400 font-bold text-sm">
-                          M
-                        </div>
-                        <div className="flex flex-col">
-                          <div className="flex items-center gap-2 text-white font-bold text-base">
-                            <span>MC</span>
-                            <ChevronRight size={16} className="rotate-90 text-gray-500" />
-                          </div>
-                          <div className="flex items-center gap-1.5">
-                            <div className="w-1.5 h-1.5 rounded-full bg-[#26619C]"></div>
-                            <span className="text-xs text-gray-500 truncate max-w-[140px]">
-                              Vanilla / Forge / Fabric
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="relative z-20 flex items-center gap-3 text-gray-500 text-sm">
-                  <Coffee size={18} className="text-gray-400" />
-                  <span className="font-medium">Diagnóstico con reportes de logs</span>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  <HeroFact icon={Folder} label="Instancias" value="Ordenadas sin carpetas manuales" />
+                  <HeroFact icon={Cpu} label="Java" value="Gestion y ayuda desde el launcher" />
+                  <HeroFact icon={Eye} label="Diagnostico" value="Errores explicados con lenguaje claro" />
+                  <HeroFact icon={FileText} label="Transparencia" value="Version, changelog y enlaces visibles" />
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* About */}
-      <section id="about" className="py-16 bg-[#15171B] border-t border-[#2A2E35]">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-7 space-y-4">
-            <h2 className="font-heading text-4xl font-bold text-white">Qué es Newen</h2>
-            <p className="font-body text-gray-400 text-lg leading-relaxed">
-              Newen es un launcher chileno, moderno y directo. Está pensado para quienes aman
-              Minecraft pero odian el caos: instalaciones manuales, mods incompatibles y bajo
-              rendimiento.
-            </p>
+        <section className="px-4 pb-20 sm:px-6">
+          <div className="mx-auto max-w-7xl">
+            <SectionTitle
+              eyebrow="Prueba visual"
+              title="Capturas reales del launcher"
+              description="Estas pantallas muestran el estado real de los menus principales del producto para que la landing represente mejor lo que existe hoy."
+            />
+            <div className="mt-10 grid gap-5 lg:grid-cols-2">
+              {screenshotShowcase.map((item) => (
+                <ScreenshotCard
+                  key={item.title}
+                  eyebrow={item.eyebrow}
+                  title={item.title}
+                  description={item.description}
+                  chips={item.chips}
+                  imageSrc={item.imageSrc}
+                  imageAlt={item.imageAlt}
+                  onOpen={() =>
+                    setSelectedScreenshot({
+                      src: item.imageSrc,
+                      alt: item.imageAlt,
+                      title: item.title,
+                    })
+                  }
+                />
+              ))}
+            </div>
           </div>
-          <div className="lg:col-span-5">
-            <div className="bg-[#1B1E23] border border-[#2A2E35] rounded-xl p-6">
-              <div className="text-xs uppercase tracking-[0.2em] text-gray-500 font-semibold mb-3">
-                Enfoque
-              </div>
-              <p className="text-gray-400 leading-relaxed font-body">
-                Rendimiento real, control de instancias y una experiencia limpia para jugar sin
-                complicaciones.
+        </section>
+
+        <section className="border-y border-[var(--line)] bg-[rgba(255,255,255,0.02)] px-4 py-16 sm:px-6">
+          <div className="mx-auto max-w-7xl">
+            <SectionTitle
+              eyebrow="Diferenciales"
+              title="Tres razones para que Newen se sienta distinto"
+              description="El foco esta en resolver mejor lo esencial, no en inflar el producto con ruido."
+              centered
+            />
+            <div className="mt-10 grid gap-5 lg:grid-cols-3">
+              {differentiators.map((item) => (
+                <FeatureBlock key={item.title} {...item} accent />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-20 sm:px-6">
+          <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="space-y-5">
+              <SectionTitle
+                eyebrow="Por que existe"
+                title="Muchos launchers siguen siendo mas confusos de lo que deberian"
+                description="Newen nace para facilitar una experiencia de Minecraft en PC mas ordenada, confiable y accesible, especialmente para jugadores hispanohablantes."
+              />
+              <p className="max-w-2xl text-base leading-8 text-[var(--muted)]">
+                La mision es ayudarte a instalar, organizar y jugar tus instancias con menos
+                friccion tecnica. La vision es convertirse en un launcher de referencia para la
+                comunidad hispanohablante que busca simplicidad, transparencia y buen rendimiento.
               </p>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Features Grid */}
-      <section id="features" className="py-20 bg-[#121212]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="font-heading text-4xl font-bold text-white mb-4">
-              LO QUE <span className="text-[#FF8C00]">PUEDES HACER</span>
-            </h2>
-            <p className="font-body text-gray-400 max-w-2xl mx-auto">
-              Catálogo, instancias y rendimiento en un solo lugar.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <FeatureCard
-              icon={<Search size={32} className="text-[#26619C]" />}
-              title="Catálogo integrado"
-              desc="Busca e instala mods, modpacks, shaders y resource packs desde un solo lugar (Modrinth)."
-            />
-            <FeatureCard
-              icon={<Folder size={32} className="text-[#FF8C00]" />}
-              title="Instancias claras"
-              desc="Vanilla, Forge, NeoForge y Fabric organizados sin enredos."
-            />
-            <FeatureCard
-              icon={<Zap size={32} className="text-[#FF8C00]" />}
-              title="Optimización en 1 clic"
-              desc="Perfiles listos para rendimiento (Competitivo / Balanceado / Calidad)."
-            />
-            <FeatureCard
-              icon={<ShieldCheck size={32} className="text-green-400" />}
-              title="Rollback seguro"
-              desc="Si algo falla, puedes volver atrás sin romper tu instancia."
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Performance */}
-      <section id="performance" className="py-20 bg-[#121212] border-t border-[#2A2E35]">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7 space-y-4">
-            <h2 className="font-heading text-4xl font-bold text-white">Rendimiento en serio</h2>
-            <p className="font-body text-gray-400 text-lg leading-relaxed">
-              Minecraft puede ir lento incluso en PCs buenas.
-            </p>
-            <p className="font-body text-gray-400 text-lg leading-relaxed">
-              Newen te da optimizaciones listas, ajustes de RAM y herramientas reales para mejorar
-              el rendimiento sin horas de prueba y error.
-            </p>
-          </div>
-          <div className="lg:col-span-5 grid gap-4">
-            <InfoCard text="Optimizaciones listas para rendimiento." />
-            <InfoCard text="Ajustes de RAM claros y rápidos." />
-            <InfoCard text="Herramientas reales para mejorar rendimiento." />
-          </div>
-        </div>
-      </section>
-
-      
-
-      {/* Early Access */}
-      <section id="early-access" className="py-20 bg-[#15171B] border-t border-[#2A2E35] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-          <div className="order-2 lg:order-1">
-            <div className="grid grid-cols-2 gap-4">
-              <TechBadge
-                label="Early Access"
-                color="bg-orange-900/20 text-orange-400 border-orange-500/30"
+            <div className="grid gap-4">
+              <QuoteCard
+                title="Propuesta de valor"
+                text="Un launcher moderno de Minecraft que prioriza claridad, confianza y rendimiento."
               />
-              <TechBadge
-                label="Sin firma"
-                color="bg-blue-900/20 text-blue-400 border-blue-500/30"
+              <QuoteCard
+                title="Tono de marca"
+                text="Claro, cercano, tecnico cuando hace falta y transparente sin exagerar."
               />
-              <TechBadge
-                label="Sin trackers"
-                color="bg-gray-800 text-gray-300 border-gray-700"
-              />
-              <TechBadge
-                label="Feedback real"
-                color="bg-gray-800 text-gray-300 border-gray-700"
+              <QuoteCard
+                title="Que transmite"
+                text="Te ayudo. Te explico. No te escondo nada. No te complico la vida."
               />
             </div>
+          </div>
+        </section>
 
-            <div className="mt-8 p-6 rounded-lg bg-[#1B1E23] border border-[#2A2E35] font-body text-sm text-gray-400">
-              <div className="flex items-center gap-2 border-b border-[#2A2E35] pb-2 mb-4">
-                <div className="w-2 h-2 rounded-full bg-red-500"></div>
-                <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
-                <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                <span className="ml-2 text-xs opacity-50">estado - transparencia</span>
+        <section id="features" className="px-4 py-20 sm:px-6">
+          <div className="mx-auto max-w-7xl">
+            <SectionTitle
+              eyebrow="Funciones core"
+              title="Lo que si define a Newen Launcher"
+              description="Estas funciones sostienen la propuesta del producto y deberian sentirse claras desde la landing."
+            />
+            <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
+              {coreFeatures.map((item) => (
+                <FeatureBlock key={item.title} {...item} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="transparency" className="border-y border-[var(--line)] bg-[rgba(255,255,255,0.02)] px-4 py-20 sm:px-6">
+          <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_1.05fr]">
+            <div className="space-y-6">
+              <SectionTitle
+                eyebrow="Transparencia"
+                title="Transparencia ante todo"
+                description="Mostramos lo que cambia, lo que descargas y el estado actual del proyecto para reducir friccion y desconfianza desde la primera visita."
+              />
+              <div className="grid gap-3">
+                {transparencyItems.map((item) => (
+                  <ListRow key={item} text={item} icon={CheckCircle2} />
+                ))}
               </div>
-              <p className="mb-2">
-                <span className="text-green-400">✔</span>{" "}
-                <span className="text-[#FF8C00]">0 detecciones en VirusTotal</span>
-              </p>
-              <p className="text-gray-500">
-                El instalador no tiene firma digital aún (Windows puede advertir).
+              <p className="text-sm leading-7 text-[var(--muted)]">
+                El instalador aun no cuenta con firma digital. Por eso esta zona pone al frente
+                los datos que una persona prudente necesita revisar antes de descargar.
               </p>
             </div>
-          </div>
 
-          <div className="order-1 lg:order-2 space-y-6">
-            <h2 className="font-heading text-4xl font-bold text-white">Early Access</h2>
-            <p className="font-body text-gray-400 text-lg leading-relaxed">
-              Este launcher está en desarrollo activo.
-            </p>
-            <ul className="space-y-4 font-body text-gray-300">
-              <li className="flex items-start gap-3">
-                <div className="p-1 rounded bg-[#FF8C00]/20 text-[#FF8C00] mt-1">
-                  <CheckCircle size={16} />
-                </div>
-                <span>
-                  El instalador no tiene firma digital aún (Windows puede advertir).
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="p-1 rounded bg-[#FF8C00]/20 text-[#FF8C00] mt-1">
-                  <CheckCircle size={16} />
-                </div>
-                <span>No hay trackers ni publicidad.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="p-1 rounded bg-[#FF8C00]/20 text-[#FF8C00] mt-1">
-                  <CheckCircle size={16} />
-                </div>
-                <span>Mejoramos rápido con feedback real.</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Discord Support */}
-      <section id="discord" className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#121212] via-[#1B1E23] to-[#121212]"></div>
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
-
-        <div className="max-w-4xl mx-auto px-6 relative z-10 text-center space-y-8">
-          <h2 className="font-heading text-5xl font-bold text-white">Discord = centro oficial</h2>
-          <p className="font-body text-xl text-gray-400">
-            Comunidad, soporte y anuncios viven ahí:
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-4 text-left">
-            <div className="flex items-center gap-3 bg-[#1B1E23] border border-[#2A2E35] rounded-lg px-4 py-3 text-gray-300">
-              <CheckCircle size={18} className="text-[#FF8C00]" />
-              <span>Chat entre usuarios</span>
-            </div>
-            <div className="flex items-center gap-3 bg-[#1B1E23] border border-[#2A2E35] rounded-lg px-4 py-3 text-gray-300">
-              <CheckCircle size={18} className="text-[#FF8C00]" />
-              <span>Tickets de ayuda</span>
-            </div>
-            <div className="flex items-center gap-3 bg-[#1B1E23] border border-[#2A2E35] rounded-lg px-4 py-3 text-gray-300">
-              <CheckCircle size={18} className="text-[#FF8C00]" />
-              <span>Changelog y roadmap</span>
+            <div className="grid gap-4 md:grid-cols-2">
+              {trustFacts.filter((item) => item.active).map((item) => (
+                <TrustCard
+                  key={item.label}
+                  icon={item.icon}
+                  label={item.label}
+                  value={item.value}
+                  note={item.note}
+                  href={item.href}
+                />
+              ))}
             </div>
           </div>
+        </section>
 
-          <div className="flex flex-col items-center gap-4">
-            <a
-              href="https://discord.gg/rTbktFZYZz"
-              target="_blank"
-              rel="noreferrer"
-              className="px-12 py-5 bg-[#FF8C00] text-black font-heading font-bold text-2xl rounded shadow-[0_0_30px_rgba(255,140,0,0.25)] transition-all flex items-center gap-3 hover:brightness-110"
-            >
-              <MessageCircle size={28} /> Entrar al Discord
-            </a>
-            <p className="text-gray-500 text-sm font-body mt-2">
-              Early Access · Feedback rápido · Soporte oficial
-            </p>
-            <p className="text-gray-500 text-xs font-body">
-              Los que entran por ahora reciben rol beta tester.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section id="faq" className="py-20 bg-[#15171B] border-t border-[#2A2E35]">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-heading text-4xl font-bold text-white">Preguntas rápidas</h2>
-            <p className="font-body text-gray-400">Respuestas directas a lo básico.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            <FaqCard question="¿Es gratis?" answer="Sí." />
-            <FaqCard question="¿Necesito cuenta?" answer="No para jugar offline. Para online, sí." />
-            <FaqCard question="¿Dónde pido soporte?" answer="En el Discord oficial." />
-          </div>
-        </div>
-      </section>
-
-      {/* Download */}
-      <section id="download" className="py-20 bg-[#121212] border-t border-[#2A2E35]">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h2 className="font-heading text-4xl font-bold text-white">Descarga</h2>
-            <p className="font-body text-gray-400 text-lg leading-relaxed">
-              Windows 10/11 x64. Completa el formulario para participar en el acceso anticipado.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href="https://forms.gle/247MqxET4xtHj3HM7"
-                target="_blank"
-                rel="noreferrer"
-                className="px-6 sm:px-8 py-4 bg-gradient-to-r from-[#FF8C00] to-[#B87333] text-white font-heading font-bold text-base sm:text-lg rounded shadow-[0_0_20px_rgba(255,140,0,0.2)] transition-all hover:brightness-110 inline-flex items-center gap-2 justify-center"
-              >
-                <Download size={20} />
-                Participar en Early Access
-              </a>
+        <section className="px-4 py-20 sm:px-6">
+          <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="space-y-5">
+              <SectionTitle
+                eyebrow="Para quien es"
+                title="Newen es para ti si valoras una experiencia mas clara"
+                description="El usuario principal no quiere pelear con Java, carpetas, loaders ni errores cripticos."
+              />
+              <p className="max-w-xl text-base leading-8 text-[var(--muted)]">
+                El foco esta en jugadores de Minecraft en PC que quieren una experiencia mas
+                simple que la de otros launchers, con soporte real para mods y modpacks, pero sin
+                exigir conocimientos tecnicos innecesarios.
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {audienceItems.map((item) => (
+                <ListRow key={item} text={item} icon={CheckCircle2} strong />
+              ))}
             </div>
           </div>
+        </section>
 
-          <div className="bg-[#1B1E23] border border-[#2A2E35] rounded-xl p-6 space-y-4">
-            <div className="flex items-center gap-3 text-gray-300">
-              <HardDrive size={18} className="text-[#FF8C00]" />
-              <span className="font-body">Windows 10/11 x64</span>
-            </div>
-            <div className="flex items-center gap-3 text-gray-300">
-              <Download size={18} className="text-[#FF8C00]" />
-              <a
-                href="https://github.com/OrmazabalDev/Newen_lUpdate"
-                target="_blank"
-                rel="noreferrer"
-                className="font-body text-gray-200 hover:text-white transition-colors"
-              >
-                Instalador oficial en Releases
-              </a>
-            </div>
-            <div className="flex items-center gap-3 text-gray-300">
-              <Download size={18} className="text-[#FF8C00]" />
-              <a
-                href="https://github.com/OrmazabalDev/Newen_lUpdate/releases"
-                target="_blank"
-                rel="noreferrer"
-                className="font-body text-gray-200 hover:text-white transition-colors"
-              >
-                Link alternativo MSI
-              </a>
-            </div>
-            <div className="flex items-start gap-3 text-gray-300">
-              <ShieldCheck size={18} className="text-[#FF8C00] mt-0.5" />
-              <span className="font-body">
-                Consejo: si Windows muestra advertencia, es por la falta de firma (temporal).
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      
-
-      {/* Footer */}
-      <footer className="bg-[#0e0e0e] border-t border-[#1B1E23] py-10">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-2">
-            <img
-              src={logoUrl}
-              alt="NEWEN logo"
-              className="w-8 h-8 rounded"
-              loading="lazy"
+        <section id="faq" className="px-4 pb-20 sm:px-6">
+          <div className="mx-auto max-w-6xl">
+            <SectionTitle
+              eyebrow="FAQ"
+              title="Preguntas frecuentes que bajan la desconfianza"
+              description="Respuestas directas a las dudas que mas frenan una descarga o el primer uso del launcher."
             />
-            <span className="font-heading font-bold text-lg text-gray-400">
-              Newen Launcher — Early Access
-            </span>
-          </div>
-          <div className="flex flex-col items-center md:items-end gap-2 text-gray-500 text-sm font-body text-center md:text-right">
-            <div className="flex flex-col sm:flex-row items-center gap-2">
-              <a
-                href="https://discord.gg/rTbktFZYZz"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                Soporte oficial: Discord
-              </a>
-              <span className="hidden sm:inline text-gray-700">•</span>
-              <a
-                href="#/politica-de-privacidad"
-                className="hover:text-white transition-colors"
-              >
-                Política de Privacidad
-              </a>
-            </div>
-            <div className="text-xs text-gray-600 max-w-md">
-              Minecraft es una marca registrada de Mojang y Microsoft. Newen no está afiliado.
+            <div className="mt-10 grid gap-4">
+              {faqs.map((item) => (
+                <FaqItem key={item.question} question={item.question} answer={item.answer} />
+              ))}
             </div>
           </div>
+        </section>
+
+        <section className="border-y border-[var(--line)] bg-[rgba(255,255,255,0.02)] px-4 py-20 sm:px-6">
+          <div className="mx-auto max-w-7xl">
+            <SectionTitle
+              eyebrow="Roadmap"
+              title="Direccion visible del proyecto"
+              description="Un roadmap corto ayuda a ver que ya existe, que esta avanzando y que viene despues sin prometer mas de la cuenta."
+            />
+            <div className="mt-10 grid gap-5 lg:grid-cols-3">
+              <RoadmapCard
+                icon={PackageCheck}
+                title="Hecho"
+                subtitle="Base ya visible en producto y web."
+                items={roadmap.done}
+                tone="done"
+              />
+              <RoadmapCard
+                icon={Rocket}
+                title="En progreso"
+                subtitle="Trabajo activo de la etapa actual."
+                items={roadmap.progress}
+                tone="progress"
+              />
+              <RoadmapCard
+                icon={ShieldAlert}
+                title="Proximamente"
+                subtitle="Siguiente capa despues de validar el nucleo."
+                items={roadmap.next}
+                tone="next"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section id="download" className="px-4 py-20 sm:px-6">
+          <div className="mx-auto max-w-6xl rounded-[2rem] border border-[rgba(255,255,255,0.08)] bg-[linear-gradient(135deg,_rgba(240,138,36,0.12),_rgba(31,111,139,0.1))] p-6 sm:p-8 lg:p-10">
+            <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+              <div className="space-y-5">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.1)] bg-[rgba(7,11,15,0.24)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand-soft)]">
+                  <Wrench size={14} />
+                  Prueba Newen Launcher
+                </div>
+                <div className="space-y-4">
+                  <h2 className="font-heading text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                    Un launcher moderno para Minecraft, enfocado en claridad, orden y confianza.
+                  </h2>
+                  <p className="max-w-2xl text-base leading-8 text-[rgba(229,237,245,0.78)]">
+                    Descarga la build disponible o sigue el desarrollo del proyecto en GitHub.
+                    Newen esta hecho para ayudarte a jugar mejor, no para complicarte mas.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-4 sm:flex-row">
+                  <a
+                    href={releasesUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--brand)] px-6 py-4 text-base font-semibold text-[#10151b] transition-transform hover:translate-y-[-1px] hover:bg-[var(--brand-soft)]"
+                  >
+                    Descargar ahora
+                    <Download size={18} />
+                  </a>
+                  <a
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-[rgba(255,255,255,0.16)] bg-[rgba(7,11,15,0.22)] px-6 py-4 text-base font-semibold text-white transition-colors hover:border-white hover:bg-[rgba(255,255,255,0.08)]"
+                  >
+                    Seguir desarrollo
+                    <Github size={18} />
+                  </a>
+                </div>
+              </div>
+
+              <div className="grid gap-4">
+                <FeatureBlock
+                  icon={Globe2}
+                  title="Hecho en Chile"
+                  description="Con foco inicial en la comunidad hispanohablante de LATAM."
+                  accent
+                />
+                <FeatureBlock
+                  icon={ShieldCheck}
+                  title="Transparencia como base"
+                  description="Links del proyecto, politica de privacidad y seguimiento publico."
+                  accent
+                />
+                <FeatureBlock
+                  icon={Cpu}
+                  title="Pensado para PCs reales"
+                  description="Orden, rendimiento y menos errores comunes al instalar o jugar."
+                  accent
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-[var(--line)] bg-[rgba(6,9,13,0.8)] px-4 py-10 sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex items-center gap-3">
+            <img src={logoUrl} alt="Newen Launcher" className="h-10 w-10 rounded-xl" />
+            <div>
+              <div className="font-heading text-xl font-bold text-white">Newen Launcher</div>
+              <div className="text-sm text-[var(--muted)]">Juega Minecraft sin enredos.</div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--muted)]">
+            <a href={githubUrl} target="_blank" rel="noreferrer" className="hover:text-white">GitHub</a>
+            <a href={releasesUrl} target="_blank" rel="noreferrer" className="hover:text-white">Releases</a>
+            <a href={discordUrl} target="_blank" rel="noreferrer" className="hover:text-white">Discord</a>
+            <a href="#/politica-de-privacidad" className="hover:text-white">Politica de privacidad</a>
+          </div>
+        </div>
+        <div className="mx-auto mt-6 max-w-7xl text-sm leading-7 text-[var(--muted)]">
+          Minecraft es una marca registrada de Mojang y Microsoft. Newen Launcher no esta afiliado
+          oficialmente con esas marcas.
         </div>
       </footer>
+
+      {selectedScreenshot ? (
+        <ScreenshotModal
+          screenshot={selectedScreenshot}
+          onClose={() => setSelectedScreenshot(null)}
+        />
+      ) : null}
     </div>
   );
 };
 
-/* Sub-components */
-type FeatureCardProps = {
-  icon: ReactNode;
+type SectionTitleProps = {
+  eyebrow: string;
   title: string;
-  desc: string;
+  description: string;
+  centered?: boolean;
 };
 
-const FeatureCard = ({ icon, title, desc }: FeatureCardProps) => (
-  <div className="group bg-[#1B1E23] p-8 rounded-lg border border-[#2A2E35] hover:border-[#FF8C00] transition-colors duration-300 hover:shadow-lg hover:shadow-[#FF8C00]/10 cursor-default">
-    <div className="mb-6 p-3 bg-[#121212] rounded w-fit group-hover:scale-110 transition-transform duration-300 border border-[#2A2E35] group-hover:border-[#FF8C00]/30">
-      {icon}
+const SectionTitle = ({ eyebrow, title, description, centered = false }: SectionTitleProps) => (
+  <div className={centered ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
+    <div className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--brand-soft)]">{eyebrow}</div>
+    <h2 className="mt-4 font-heading text-4xl font-bold tracking-tight text-white sm:text-5xl">{title}</h2>
+    <p className="mt-4 text-base leading-8 text-[var(--muted)] sm:text-lg">{description}</p>
+  </div>
+);
+
+type FeatureBlockProps = CardData & { accent?: boolean };
+
+const FeatureBlock = ({ icon: Icon, title, description, accent = false }: FeatureBlockProps) => (
+  <article className="rounded-[1.6rem] border border-[rgba(255,255,255,0.06)] bg-[rgba(7,11,15,0.55)] p-5 transition-colors hover:border-[rgba(240,138,36,0.3)]">
+    <div
+      className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
+        accent ? "bg-[rgba(240,138,36,0.12)] text-[var(--brand-soft)]" : "bg-[rgba(31,111,139,0.18)] text-[#8bd3ff]"
+      }`}
+    >
+      <Icon size={20} />
     </div>
-    <h3 className="font-heading text-xl font-bold text-white mb-3 group-hover:text-[#FF8C00] transition-colors">
-      {title}
-    </h3>
-    <p className="font-body text-gray-400 leading-relaxed text-sm">{desc}</p>
-  </div>
+    <h3 className="mt-5 font-heading text-xl font-bold text-white">{title}</h3>
+    <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{description}</p>
+  </article>
 );
 
-type TechBadgeProps = {
+type StatCardProps = {
   label: string;
-  color: string;
+  value: string;
 };
 
-const TechBadge = ({ label, color }: TechBadgeProps) => (
-  <div
-    className={`flex items-center justify-center py-4 rounded border ${color} font-heading font-bold tracking-wider text-sm uppercase`}
-  >
-    {label}
+const StatCard = ({ label, value }: StatCardProps) => (
+  <div className="rounded-[1.4rem] border border-[rgba(255,255,255,0.06)] bg-[rgba(7,11,15,0.42)] px-4 py-4">
+    <div className="text-xs uppercase tracking-[0.18em] text-[var(--muted)]">{label}</div>
+    <div className="mt-2 font-heading text-xl font-bold text-white">{value}</div>
   </div>
 );
 
-type InfoCardProps = {
+type HeroPanelProps = {
+  eyebrow: string;
+  title: string;
+  description: string;
+};
+
+const HeroPanel = ({ eyebrow, title, description }: HeroPanelProps) => (
+  <div className="rounded-[1.8rem] border border-[rgba(255,255,255,0.08)] bg-[linear-gradient(180deg,_rgba(19,28,37,0.92),_rgba(13,18,24,0.94))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+    <div className="text-xs uppercase tracking-[0.18em] text-[var(--brand-soft)]">{eyebrow}</div>
+    <h3 className="mt-3 font-heading text-3xl font-bold text-white">{title}</h3>
+    <p className="mt-4 text-sm leading-7 text-[var(--muted)]">{description}</p>
+  </div>
+);
+
+type HeroMiniCardProps = {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+};
+
+const HeroMiniCard = ({ icon: Icon, title, description }: HeroMiniCardProps) => (
+  <div className="rounded-[1.6rem] border border-[rgba(255,255,255,0.08)] bg-[rgba(7,11,15,0.5)] p-5">
+    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[rgba(240,138,36,0.12)] text-[var(--brand-soft)]">
+      <Icon size={20} />
+    </div>
+    <h3 className="mt-4 font-heading text-xl font-bold text-white">{title}</h3>
+    <p className="mt-2 text-sm leading-7 text-[var(--muted)]">{description}</p>
+  </div>
+);
+
+type HeroFactProps = {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+};
+
+const HeroFact = ({ icon: Icon, label, value }: HeroFactProps) => (
+  <div className="rounded-[1.4rem] border border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.03)] p-4">
+    <div className="flex items-center gap-3">
+      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[rgba(255,255,255,0.06)] text-white">
+        <Icon size={18} />
+      </div>
+      <div>
+        <div className="text-xs uppercase tracking-[0.18em] text-[var(--brand-soft)]">{label}</div>
+        <div className="mt-1 text-sm text-white">{value}</div>
+      </div>
+    </div>
+  </div>
+);
+
+type ScreenshotCardProps = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  chips: string[];
+  imageSrc: string;
+  imageAlt: string;
+  onOpen: () => void;
+};
+
+const ScreenshotCard = ({
+  eyebrow,
+  title,
+  description,
+  chips,
+  imageSrc,
+  imageAlt,
+  onOpen,
+}: ScreenshotCardProps) => {
+  return (
+    <article className="overflow-hidden rounded-[1.8rem] border border-[rgba(255,255,255,0.06)] bg-[rgba(7,11,15,0.55)]">
+      <div className="border-b border-[rgba(255,255,255,0.06)] bg-[linear-gradient(180deg,_rgba(19,28,37,0.94),_rgba(13,18,24,0.94))] p-3">
+        <button
+          type="button"
+          onClick={onOpen}
+          className="group block w-full overflow-hidden rounded-[1.4rem] border border-[rgba(255,255,255,0.08)] bg-[rgba(8,12,16,0.75)] text-left transition-colors hover:border-[rgba(240,138,36,0.4)]"
+          aria-label={`Ampliar captura: ${title}`}
+        >
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            loading="lazy"
+            className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+          />
+        </button>
+      </div>
+      <div className="space-y-4 p-5">
+        <div className="space-y-2">
+          <div className="text-xs uppercase tracking-[0.18em] text-[var(--brand-soft)]">
+            {eyebrow}
+          </div>
+          <h3 className="font-heading text-2xl font-bold text-white">{title}</h3>
+          <p className="mt-2 text-sm leading-7 text-[var(--muted)]">{description}</p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {chips.map((chip) => (
+            <span
+              key={chip}
+              className="rounded-full border border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.03)] px-3 py-1 text-xs text-[var(--muted)]"
+            >
+              {chip}
+            </span>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+};
+
+type ScreenshotModalProps = {
+  screenshot: ScreenshotPreview;
+  onClose: () => void;
+};
+
+const ScreenshotModal = ({ screenshot, onClose }: ScreenshotModalProps) => (
+  <div
+    className="fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(5,8,11,0.88)] px-4 py-6 backdrop-blur-sm"
+    onClick={onClose}
+    role="dialog"
+    aria-modal="true"
+    aria-label={screenshot.title}
+  >
+    <div
+      className="relative max-h-full w-full max-w-6xl"
+      onClick={(event) => event.stopPropagation()}
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        className="absolute right-3 top-3 z-10 rounded-full border border-[rgba(255,255,255,0.12)] bg-[rgba(7,11,15,0.72)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:border-[var(--brand)] hover:text-[var(--brand-soft)]"
+      >
+        Cerrar
+      </button>
+      <div className="overflow-hidden rounded-[1.8rem] border border-[rgba(255,255,255,0.08)] bg-[rgba(9,13,18,0.96)] shadow-[0_24px_100px_rgba(0,0,0,0.45)]">
+        <img
+          src={screenshot.src}
+          alt={screenshot.alt}
+          className="max-h-[85vh] w-full object-contain"
+        />
+      </div>
+    </div>
+  </div>
+);
+
+type QuoteCardProps = {
+  title: string;
   text: string;
 };
 
-const InfoCard = ({ text }: InfoCardProps) => (
-  <div className="bg-[#1B1E23] border border-[#2A2E35] rounded-lg p-6 flex items-start gap-3 text-gray-300">
-    <div className="p-1 rounded bg-[#FF8C00]/20 text-[#FF8C00] mt-0.5">
-      <CheckCircle size={16} />
+const QuoteCard = ({ title, text }: QuoteCardProps) => (
+  <article className="rounded-[1.6rem] border border-[rgba(255,255,255,0.06)] bg-[rgba(7,11,15,0.46)] p-5">
+    <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand-soft)]">{title}</div>
+    <p className="mt-3 text-base leading-8 text-[var(--text)]">{text}</p>
+  </article>
+);
+
+type ListRowProps = {
+  text: string;
+  icon: LucideIcon;
+  strong?: boolean;
+};
+
+const ListRow = ({ text, icon: Icon, strong = false }: ListRowProps) => (
+  <div className="flex items-start gap-3 rounded-[1.4rem] border border-[rgba(255,255,255,0.06)] bg-[rgba(7,11,15,0.5)] px-4 py-4">
+    <div className="mt-0.5 rounded-full bg-[rgba(240,138,36,0.12)] p-2 text-[var(--brand-soft)]">
+      <Icon size={16} />
     </div>
-    <span className="font-body leading-relaxed">{text}</span>
+    <p className={`text-sm leading-7 ${strong ? "text-[var(--text)]" : "text-[var(--muted)]"}`}>{text}</p>
   </div>
 );
 
-type FaqCardProps = {
+type TrustCardProps = {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  note: string;
+  href: string;
+};
+
+const TrustCard = ({ icon: Icon, label, value, note, href }: TrustCardProps) => (
+  <a
+    href={href}
+    target={href.startsWith("http") ? "_blank" : undefined}
+    rel={href.startsWith("http") ? "noreferrer" : undefined}
+    className="group rounded-[1.6rem] border border-[rgba(255,255,255,0.06)] bg-[linear-gradient(180deg,_rgba(255,255,255,0.04),_rgba(255,255,255,0.02))] p-5 transition-all hover:border-[rgba(240,138,36,0.4)] hover:translate-y-[-2px]"
+  >
+    <div className="flex items-center justify-between gap-4">
+      <div className="rounded-2xl bg-[rgba(240,138,36,0.12)] p-3 text-[var(--brand-soft)]">
+        <Icon size={20} />
+      </div>
+      <ArrowRight size={18} className="text-[var(--muted)] transition-transform group-hover:translate-x-1 group-hover:text-white" />
+    </div>
+    <div className="mt-5 space-y-2">
+      <div className="text-xs uppercase tracking-[0.18em] text-[var(--brand-soft)]">{label}</div>
+      <div className="font-heading text-xl font-bold text-white">{value}</div>
+      <p className="text-sm leading-7 text-[var(--muted)]">{note}</p>
+    </div>
+  </a>
+);
+
+type RoadmapCardProps = {
+  icon: LucideIcon;
+  title: string;
+  subtitle: string;
+  items: string[];
+  tone: "done" | "progress" | "next";
+};
+
+const RoadmapCard = ({ icon: Icon, title, subtitle, items, tone }: RoadmapCardProps) => (
+  <div className="rounded-[1.8rem] border border-[rgba(255,255,255,0.06)] bg-[rgba(7,11,15,0.5)] p-6">
+    <div className="flex items-center gap-3">
+      <div
+        className={`rounded-2xl p-3 ${
+          tone === "done"
+            ? "bg-[rgba(240,138,36,0.12)] text-[var(--brand-soft)]"
+            : tone === "progress"
+              ? "bg-[rgba(31,111,139,0.18)] text-[#8bd3ff]"
+              : "bg-[rgba(255,255,255,0.08)] text-white"
+        }`}
+      >
+        <Icon size={22} />
+      </div>
+      <div>
+        <div className="font-heading text-2xl font-bold text-white">{title}</div>
+        <div className="text-sm text-[var(--muted)]">{subtitle}</div>
+      </div>
+    </div>
+    <div className="mt-6 grid gap-3">
+      {items.map((item) => (
+        <ListRow
+          key={item}
+          text={item}
+          icon={tone === "done" ? CheckCircle2 : tone === "progress" ? Rocket : FileText}
+          strong
+        />
+      ))}
+    </div>
+  </div>
+);
+
+type FaqItemProps = {
   question: string;
   answer: string;
 };
 
-const FaqCard = ({ question, answer }: FaqCardProps) => (
-  <div className="bg-[#1B1E23] border border-[#2A2E35] rounded-lg p-6 space-y-3">
-    <h3 className="font-heading text-lg text-white">{question}</h3>
-    <p className="font-body text-gray-400">{answer}</p>
-  </div>
+const FaqItem = ({ question, answer }: FaqItemProps) => (
+  <details className="group rounded-[1.5rem] border border-[rgba(255,255,255,0.06)] bg-[rgba(7,11,15,0.5)] p-5">
+    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-heading text-xl font-bold text-white">
+      {question}
+      <span className="rounded-full border border-[rgba(255,255,255,0.08)] px-3 py-1 text-xs text-[var(--muted)] transition-colors group-open:border-[var(--brand)] group-open:text-[var(--brand-soft)]">
+        Ver
+      </span>
+    </summary>
+    <p className="mt-4 text-sm leading-7 text-[var(--muted)]">{answer}</p>
+  </details>
 );
 
 export default NewenWebsite;
